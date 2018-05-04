@@ -1,33 +1,18 @@
 /*
  *
- * Copyright 2016, Google Inc.
- * All rights reserved.
+ * Copyright 2016 gRPC authors.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *     * Redistributions of source code must retain the above copyright
- * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above
- * copyright notice, this list of conditions and the following disclaimer
- * in the documentation and/or other materials provided with the
- * distribution.
- *     * Neither the name of Google Inc. nor the names of its
- * contributors may be used to endorse or promote products derived from
- * this software without specific prior written permission.
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
  */
 
@@ -38,7 +23,6 @@
 #import <Cronet/Cronet.h>
 #import <grpc/grpc.h>
 #import <grpc/grpc_cronet.h>
-#import <grpc/support/host_port.h>
 #import "test/core/end2end/cq_verifier.h"
 #import "test/core/util/port.h"
 
@@ -46,9 +30,10 @@
 #import <grpc/support/log.h>
 
 #import "src/core/lib/channel/channel_args.h"
-#import "src/core/lib/support/env.h"
-#import "src/core/lib/support/string.h"
-#import "src/core/lib/support/tmpfile.h"
+#import "src/core/lib/gpr/env.h"
+#import "src/core/lib/gpr/host_port.h"
+#import "src/core/lib/gpr/string.h"
+#import "src/core/lib/gpr/tmpfile.h"
 #import "test/core/end2end/data/ssl_test_data.h"
 #import "test/core/util/test_config.h"
 
@@ -71,7 +56,7 @@ static void drain_cq(grpc_completion_queue *cq) {
 + (void)setUp {
   [super setUp];
 
-  char *argv[] = {"CoreCronetEnd2EndTests"};
+  char *argv[] = {(char *)"CoreCronetEnd2EndTests"};
   grpc_test_init(1, argv);
 
   grpc_init();
@@ -115,7 +100,7 @@ void init_ctx(SSL_CTX *ctx) {
   // Install server certificate
   BIO *pem = BIO_new_mem_buf((void *)test_server1_cert,
                              (int)strlen(test_server1_cert));
-  X509 *cert = PEM_read_bio_X509_AUX(pem, NULL, NULL, "");
+  X509 *cert = PEM_read_bio_X509_AUX(pem, NULL, NULL, (char *)"");
   SSL_CTX_use_certificate(ctx, cert);
   X509_free(cert);
   BIO_free(pem);
@@ -123,7 +108,7 @@ void init_ctx(SSL_CTX *ctx) {
   // Install server private key
   pem =
       BIO_new_mem_buf((void *)test_server1_key, (int)strlen(test_server1_key));
-  EVP_PKEY *key = PEM_read_bio_PrivateKey(pem, NULL, NULL, "");
+  EVP_PKEY *key = PEM_read_bio_PrivateKey(pem, NULL, NULL, (char *)"");
   SSL_CTX_use_PrivateKey(ctx, key);
   EVP_PKEY_free(key);
   BIO_free(pem);
@@ -139,6 +124,14 @@ unsigned int parse_h2_length(const char *field) {
   return ((unsigned int)(unsigned char)(field[0])) * 65536 +
          ((unsigned int)(unsigned char)(field[1])) * 256 +
          ((unsigned int)(unsigned char)(field[2]));
+}
+
+grpc_channel_args *add_disable_client_authority_filter_args(grpc_channel_args *args) {
+  grpc_arg arg;
+  arg.key = const_cast<char*>(GRPC_ARG_DISABLE_CLIENT_AUTHORITY_FILTER);
+  arg.type = GRPC_ARG_INTEGER;
+  arg.value.integer = 1;
+  return grpc_channel_args_copy_and_add(args, &arg, 1);
 }
 
 - (void)testInternalError {
@@ -160,10 +153,12 @@ unsigned int parse_h2_length(const char *field) {
   int port = grpc_pick_unused_port_or_die();
   char *addr;
   gpr_join_host_port(&addr, "127.0.0.1", port);
-  grpc_completion_queue *cq = grpc_completion_queue_create(NULL);
+  grpc_completion_queue *cq = grpc_completion_queue_create_for_next(NULL);
   stream_engine *cronetEngine = [Cronet getGlobalEngine];
+  grpc_channel_args *client_args = add_disable_client_authority_filter_args(NULL);
   grpc_channel *client =
-      grpc_cronet_secure_channel_create(cronetEngine, addr, NULL, NULL);
+      grpc_cronet_secure_channel_create(cronetEngine, addr, client_args, NULL);
+  grpc_channel_args_destroy(client_args);
 
   cq_verifier *cqv = cq_verifier_create(cq);
   grpc_op ops[6];
@@ -258,7 +253,7 @@ unsigned int parse_h2_length(const char *field) {
   grpc_metadata_array_destroy(&request_metadata_recv);
   grpc_call_details_destroy(&call_details);
 
-  grpc_call_destroy(c);
+  grpc_call_unref(c);
 
   cq_verifier_destroy(cqv);
 
@@ -273,10 +268,12 @@ unsigned int parse_h2_length(const char *field) {
 
 - (void)packetCoalescing:(BOOL)useCoalescing {
   grpc_arg arg;
-  arg.key = GRPC_ARG_USE_CRONET_PACKET_COALESCING;
+  arg.key = (char *)GRPC_ARG_USE_CRONET_PACKET_COALESCING;
   arg.type = GRPC_ARG_INTEGER;
   arg.value.integer = useCoalescing ? 1 : 0;
   grpc_channel_args *args = grpc_channel_args_copy_and_add(NULL, &arg, 1);
+  args = add_disable_client_authority_filter_args(args);
+
   grpc_call *c;
   grpc_slice request_payload_slice =
       grpc_slice_from_copied_string("hello world");
@@ -295,7 +292,7 @@ unsigned int parse_h2_length(const char *field) {
   int port = grpc_pick_unused_port_or_die();
   char *addr;
   gpr_join_host_port(&addr, "127.0.0.1", port);
-  grpc_completion_queue *cq = grpc_completion_queue_create(NULL);
+  grpc_completion_queue *cq = grpc_completion_queue_create_for_next(NULL);
   stream_engine *cronetEngine = [Cronet getGlobalEngine];
   grpc_channel *client =
       grpc_cronet_secure_channel_create(cronetEngine, addr, args, NULL);
@@ -437,7 +434,7 @@ unsigned int parse_h2_length(const char *field) {
   grpc_metadata_array_destroy(&request_metadata_recv);
   grpc_call_details_destroy(&call_details);
 
-  grpc_call_destroy(c);
+  grpc_call_unref(c);
 
   cq_verifier_destroy(cqv);
 
