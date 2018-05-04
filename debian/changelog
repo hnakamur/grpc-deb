@@ -1,13 +1,16 @@
-grpc (1.11.0-0.1) experimental; urgency=medium
+grpc (1.11.0-1) experimental; urgency=medium
 
-  * Non-maintainer upload.
+  [ Pirate Praveen <praveen@debian.org> ]
   * New upstream release
   * Refresh patches
   * Tighten dependencies
   * Bump standards version to 4.1.4
   * Bump debhelper compat to 11
 
- -- Pirate Praveen <praveen@debian.org>  Fri, 04 May 2018 19:31:33 +0530
+  [ Laszlo Boszormenyi (GCS) ]
+  * Don't specify parallel to debhelper.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Fri, 04 May 2018 17:04:13 +0000
 
 grpc (1.3.2-1) unstable; urgency=medium
 
