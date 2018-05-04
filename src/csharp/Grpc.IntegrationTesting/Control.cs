@@ -28,81 +28,90 @@ namespace Grpc.Testing {
             "c29uUGFyYW1zEhQKDG9mZmVyZWRfbG9hZBgBIAEoASISChBDbG9zZWRMb29w",
             "UGFyYW1zInsKCkxvYWRQYXJhbXMSNQoLY2xvc2VkX2xvb3AYASABKAsyHi5n",
             "cnBjLnRlc3RpbmcuQ2xvc2VkTG9vcFBhcmFtc0gAEi4KB3BvaXNzb24YAiAB",
-            "KAsyGy5ncnBjLnRlc3RpbmcuUG9pc3NvblBhcmFtc0gAQgYKBGxvYWQiQwoO",
+            "KAsyGy5ncnBjLnRlc3RpbmcuUG9pc3NvblBhcmFtc0gAQgYKBGxvYWQiVgoO",
             "U2VjdXJpdHlQYXJhbXMSEwoLdXNlX3Rlc3RfY2EYASABKAgSHAoUc2VydmVy",
-            "X2hvc3Rfb3ZlcnJpZGUYAiABKAkiTQoKQ2hhbm5lbEFyZxIMCgRuYW1lGAEg",
-            "ASgJEhMKCXN0cl92YWx1ZRgCIAEoCUgAEhMKCWludF92YWx1ZRgDIAEoBUgA",
-            "QgcKBXZhbHVlIqAECgxDbGllbnRDb25maWcSFgoOc2VydmVyX3RhcmdldHMY",
-            "ASADKAkSLQoLY2xpZW50X3R5cGUYAiABKA4yGC5ncnBjLnRlc3RpbmcuQ2xp",
-            "ZW50VHlwZRI1Cg9zZWN1cml0eV9wYXJhbXMYAyABKAsyHC5ncnBjLnRlc3Rp",
-            "bmcuU2VjdXJpdHlQYXJhbXMSJAocb3V0c3RhbmRpbmdfcnBjc19wZXJfY2hh",
-            "bm5lbBgEIAEoBRIXCg9jbGllbnRfY2hhbm5lbHMYBSABKAUSHAoUYXN5bmNf",
-            "Y2xpZW50X3RocmVhZHMYByABKAUSJwoIcnBjX3R5cGUYCCABKA4yFS5ncnBj",
-            "LnRlc3RpbmcuUnBjVHlwZRItCgtsb2FkX3BhcmFtcxgKIAEoCzIYLmdycGMu",
-            "dGVzdGluZy5Mb2FkUGFyYW1zEjMKDnBheWxvYWRfY29uZmlnGAsgASgLMhsu",
-            "Z3JwYy50ZXN0aW5nLlBheWxvYWRDb25maWcSNwoQaGlzdG9ncmFtX3BhcmFt",
-            "cxgMIAEoCzIdLmdycGMudGVzdGluZy5IaXN0b2dyYW1QYXJhbXMSEQoJY29y",
-            "ZV9saXN0GA0gAygFEhIKCmNvcmVfbGltaXQYDiABKAUSGAoQb3RoZXJfY2xp",
-            "ZW50X2FwaRgPIAEoCRIuCgxjaGFubmVsX2FyZ3MYECADKAsyGC5ncnBjLnRl",
-            "c3RpbmcuQ2hhbm5lbEFyZyI4CgxDbGllbnRTdGF0dXMSKAoFc3RhdHMYASAB",
-            "KAsyGS5ncnBjLnRlc3RpbmcuQ2xpZW50U3RhdHMiFQoETWFyaxINCgVyZXNl",
-            "dBgBIAEoCCJoCgpDbGllbnRBcmdzEisKBXNldHVwGAEgASgLMhouZ3JwYy50",
-            "ZXN0aW5nLkNsaWVudENvbmZpZ0gAEiIKBG1hcmsYAiABKAsyEi5ncnBjLnRl",
-            "c3RpbmcuTWFya0gAQgkKB2FyZ3R5cGUitAIKDFNlcnZlckNvbmZpZxItCgtz",
-            "ZXJ2ZXJfdHlwZRgBIAEoDjIYLmdycGMudGVzdGluZy5TZXJ2ZXJUeXBlEjUK",
-            "D3NlY3VyaXR5X3BhcmFtcxgCIAEoCzIcLmdycGMudGVzdGluZy5TZWN1cml0",
-            "eVBhcmFtcxIMCgRwb3J0GAQgASgFEhwKFGFzeW5jX3NlcnZlcl90aHJlYWRz",
-            "GAcgASgFEhIKCmNvcmVfbGltaXQYCCABKAUSMwoOcGF5bG9hZF9jb25maWcY",
-            "CSABKAsyGy5ncnBjLnRlc3RpbmcuUGF5bG9hZENvbmZpZxIRCgljb3JlX2xp",
-            "c3QYCiADKAUSGAoQb3RoZXJfc2VydmVyX2FwaRgLIAEoCRIcChNyZXNvdXJj",
-            "ZV9xdW90YV9zaXplGOkHIAEoBSJoCgpTZXJ2ZXJBcmdzEisKBXNldHVwGAEg",
-            "ASgLMhouZ3JwYy50ZXN0aW5nLlNlcnZlckNvbmZpZ0gAEiIKBG1hcmsYAiAB",
-            "KAsyEi5ncnBjLnRlc3RpbmcuTWFya0gAQgkKB2FyZ3R5cGUiVQoMU2VydmVy",
-            "U3RhdHVzEigKBXN0YXRzGAEgASgLMhkuZ3JwYy50ZXN0aW5nLlNlcnZlclN0",
-            "YXRzEgwKBHBvcnQYAiABKAUSDQoFY29yZXMYAyABKAUiDQoLQ29yZVJlcXVl",
-            "c3QiHQoMQ29yZVJlc3BvbnNlEg0KBWNvcmVzGAEgASgFIgYKBFZvaWQi/QEK",
-            "CFNjZW5hcmlvEgwKBG5hbWUYASABKAkSMQoNY2xpZW50X2NvbmZpZxgCIAEo",
-            "CzIaLmdycGMudGVzdGluZy5DbGllbnRDb25maWcSEwoLbnVtX2NsaWVudHMY",
-            "AyABKAUSMQoNc2VydmVyX2NvbmZpZxgEIAEoCzIaLmdycGMudGVzdGluZy5T",
-            "ZXJ2ZXJDb25maWcSEwoLbnVtX3NlcnZlcnMYBSABKAUSFgoOd2FybXVwX3Nl",
-            "Y29uZHMYBiABKAUSGQoRYmVuY2htYXJrX3NlY29uZHMYByABKAUSIAoYc3Bh",
-            "d25fbG9jYWxfd29ya2VyX2NvdW50GAggASgFIjYKCVNjZW5hcmlvcxIpCglz",
-            "Y2VuYXJpb3MYASADKAsyFi5ncnBjLnRlc3RpbmcuU2NlbmFyaW8i+AIKFVNj",
-            "ZW5hcmlvUmVzdWx0U3VtbWFyeRILCgNxcHMYASABKAESGwoTcXBzX3Blcl9z",
-            "ZXJ2ZXJfY29yZRgCIAEoARIaChJzZXJ2ZXJfc3lzdGVtX3RpbWUYAyABKAES",
-            "GAoQc2VydmVyX3VzZXJfdGltZRgEIAEoARIaChJjbGllbnRfc3lzdGVtX3Rp",
-            "bWUYBSABKAESGAoQY2xpZW50X3VzZXJfdGltZRgGIAEoARISCgpsYXRlbmN5",
-            "XzUwGAcgASgBEhIKCmxhdGVuY3lfOTAYCCABKAESEgoKbGF0ZW5jeV85NRgJ",
-            "IAEoARISCgpsYXRlbmN5Xzk5GAogASgBEhMKC2xhdGVuY3lfOTk5GAsgASgB",
-            "EhgKEHNlcnZlcl9jcHVfdXNhZ2UYDCABKAESJgoec3VjY2Vzc2Z1bF9yZXF1",
-            "ZXN0c19wZXJfc2Vjb25kGA0gASgBEiIKGmZhaWxlZF9yZXF1ZXN0c19wZXJf",
-            "c2Vjb25kGA4gASgBIoMDCg5TY2VuYXJpb1Jlc3VsdBIoCghzY2VuYXJpbxgB",
-            "IAEoCzIWLmdycGMudGVzdGluZy5TY2VuYXJpbxIuCglsYXRlbmNpZXMYAiAB",
-            "KAsyGy5ncnBjLnRlc3RpbmcuSGlzdG9ncmFtRGF0YRIvCgxjbGllbnRfc3Rh",
-            "dHMYAyADKAsyGS5ncnBjLnRlc3RpbmcuQ2xpZW50U3RhdHMSLwoMc2VydmVy",
-            "X3N0YXRzGAQgAygLMhkuZ3JwYy50ZXN0aW5nLlNlcnZlclN0YXRzEhQKDHNl",
-            "cnZlcl9jb3JlcxgFIAMoBRI0CgdzdW1tYXJ5GAYgASgLMiMuZ3JwYy50ZXN0",
-            "aW5nLlNjZW5hcmlvUmVzdWx0U3VtbWFyeRIWCg5jbGllbnRfc3VjY2VzcxgH",
-            "IAMoCBIWCg5zZXJ2ZXJfc3VjY2VzcxgIIAMoCBI5Cg9yZXF1ZXN0X3Jlc3Vs",
-            "dHMYCSADKAsyIC5ncnBjLnRlc3RpbmcuUmVxdWVzdFJlc3VsdENvdW50KkEK",
-            "CkNsaWVudFR5cGUSDwoLU1lOQ19DTElFTlQQABIQCgxBU1lOQ19DTElFTlQQ",
-            "ARIQCgxPVEhFUl9DTElFTlQQAipbCgpTZXJ2ZXJUeXBlEg8KC1NZTkNfU0VS",
-            "VkVSEAASEAoMQVNZTkNfU0VSVkVSEAESGAoUQVNZTkNfR0VORVJJQ19TRVJW",
-            "RVIQAhIQCgxPVEhFUl9TRVJWRVIQAyojCgdScGNUeXBlEgkKBVVOQVJZEAAS",
-            "DQoJU1RSRUFNSU5HEAFiBnByb3RvMw=="));
+            "X2hvc3Rfb3ZlcnJpZGUYAiABKAkSEQoJY3JlZF90eXBlGAMgASgJIk0KCkNo",
+            "YW5uZWxBcmcSDAoEbmFtZRgBIAEoCRITCglzdHJfdmFsdWUYAiABKAlIABIT",
+            "CglpbnRfdmFsdWUYAyABKAVIAEIHCgV2YWx1ZSLvBAoMQ2xpZW50Q29uZmln",
+            "EhYKDnNlcnZlcl90YXJnZXRzGAEgAygJEi0KC2NsaWVudF90eXBlGAIgASgO",
+            "MhguZ3JwYy50ZXN0aW5nLkNsaWVudFR5cGUSNQoPc2VjdXJpdHlfcGFyYW1z",
+            "GAMgASgLMhwuZ3JwYy50ZXN0aW5nLlNlY3VyaXR5UGFyYW1zEiQKHG91dHN0",
+            "YW5kaW5nX3JwY3NfcGVyX2NoYW5uZWwYBCABKAUSFwoPY2xpZW50X2NoYW5u",
+            "ZWxzGAUgASgFEhwKFGFzeW5jX2NsaWVudF90aHJlYWRzGAcgASgFEicKCHJw",
+            "Y190eXBlGAggASgOMhUuZ3JwYy50ZXN0aW5nLlJwY1R5cGUSLQoLbG9hZF9w",
+            "YXJhbXMYCiABKAsyGC5ncnBjLnRlc3RpbmcuTG9hZFBhcmFtcxIzCg5wYXls",
+            "b2FkX2NvbmZpZxgLIAEoCzIbLmdycGMudGVzdGluZy5QYXlsb2FkQ29uZmln",
+            "EjcKEGhpc3RvZ3JhbV9wYXJhbXMYDCABKAsyHS5ncnBjLnRlc3RpbmcuSGlz",
+            "dG9ncmFtUGFyYW1zEhEKCWNvcmVfbGlzdBgNIAMoBRISCgpjb3JlX2xpbWl0",
+            "GA4gASgFEhgKEG90aGVyX2NsaWVudF9hcGkYDyABKAkSLgoMY2hhbm5lbF9h",
+            "cmdzGBAgAygLMhguZ3JwYy50ZXN0aW5nLkNoYW5uZWxBcmcSFgoOdGhyZWFk",
+            "c19wZXJfY3EYESABKAUSGwoTbWVzc2FnZXNfcGVyX3N0cmVhbRgSIAEoBRIY",
+            "ChB1c2VfY29hbGVzY2VfYXBpGBMgASgIIjgKDENsaWVudFN0YXR1cxIoCgVz",
+            "dGF0cxgBIAEoCzIZLmdycGMudGVzdGluZy5DbGllbnRTdGF0cyIVCgRNYXJr",
+            "Eg0KBXJlc2V0GAEgASgIImgKCkNsaWVudEFyZ3MSKwoFc2V0dXAYASABKAsy",
+            "Gi5ncnBjLnRlc3RpbmcuQ2xpZW50Q29uZmlnSAASIgoEbWFyaxgCIAEoCzIS",
+            "LmdycGMudGVzdGluZy5NYXJrSABCCQoHYXJndHlwZSL9AgoMU2VydmVyQ29u",
+            "ZmlnEi0KC3NlcnZlcl90eXBlGAEgASgOMhguZ3JwYy50ZXN0aW5nLlNlcnZl",
+            "clR5cGUSNQoPc2VjdXJpdHlfcGFyYW1zGAIgASgLMhwuZ3JwYy50ZXN0aW5n",
+            "LlNlY3VyaXR5UGFyYW1zEgwKBHBvcnQYBCABKAUSHAoUYXN5bmNfc2VydmVy",
+            "X3RocmVhZHMYByABKAUSEgoKY29yZV9saW1pdBgIIAEoBRIzCg5wYXlsb2Fk",
+            "X2NvbmZpZxgJIAEoCzIbLmdycGMudGVzdGluZy5QYXlsb2FkQ29uZmlnEhEK",
+            "CWNvcmVfbGlzdBgKIAMoBRIYChBvdGhlcl9zZXJ2ZXJfYXBpGAsgASgJEhYK",
+            "DnRocmVhZHNfcGVyX2NxGAwgASgFEhwKE3Jlc291cmNlX3F1b3RhX3NpemUY",
+            "6QcgASgFEi8KDGNoYW5uZWxfYXJncxjqByADKAsyGC5ncnBjLnRlc3Rpbmcu",
+            "Q2hhbm5lbEFyZyJoCgpTZXJ2ZXJBcmdzEisKBXNldHVwGAEgASgLMhouZ3Jw",
+            "Yy50ZXN0aW5nLlNlcnZlckNvbmZpZ0gAEiIKBG1hcmsYAiABKAsyEi5ncnBj",
+            "LnRlc3RpbmcuTWFya0gAQgkKB2FyZ3R5cGUiVQoMU2VydmVyU3RhdHVzEigK",
+            "BXN0YXRzGAEgASgLMhkuZ3JwYy50ZXN0aW5nLlNlcnZlclN0YXRzEgwKBHBv",
+            "cnQYAiABKAUSDQoFY29yZXMYAyABKAUiDQoLQ29yZVJlcXVlc3QiHQoMQ29y",
+            "ZVJlc3BvbnNlEg0KBWNvcmVzGAEgASgFIgYKBFZvaWQi/QEKCFNjZW5hcmlv",
+            "EgwKBG5hbWUYASABKAkSMQoNY2xpZW50X2NvbmZpZxgCIAEoCzIaLmdycGMu",
+            "dGVzdGluZy5DbGllbnRDb25maWcSEwoLbnVtX2NsaWVudHMYAyABKAUSMQoN",
+            "c2VydmVyX2NvbmZpZxgEIAEoCzIaLmdycGMudGVzdGluZy5TZXJ2ZXJDb25m",
+            "aWcSEwoLbnVtX3NlcnZlcnMYBSABKAUSFgoOd2FybXVwX3NlY29uZHMYBiAB",
+            "KAUSGQoRYmVuY2htYXJrX3NlY29uZHMYByABKAUSIAoYc3Bhd25fbG9jYWxf",
+            "d29ya2VyX2NvdW50GAggASgFIjYKCVNjZW5hcmlvcxIpCglzY2VuYXJpb3MY",
+            "ASADKAsyFi5ncnBjLnRlc3RpbmcuU2NlbmFyaW8ihAQKFVNjZW5hcmlvUmVz",
+            "dWx0U3VtbWFyeRILCgNxcHMYASABKAESGwoTcXBzX3Blcl9zZXJ2ZXJfY29y",
+            "ZRgCIAEoARIaChJzZXJ2ZXJfc3lzdGVtX3RpbWUYAyABKAESGAoQc2VydmVy",
+            "X3VzZXJfdGltZRgEIAEoARIaChJjbGllbnRfc3lzdGVtX3RpbWUYBSABKAES",
+            "GAoQY2xpZW50X3VzZXJfdGltZRgGIAEoARISCgpsYXRlbmN5XzUwGAcgASgB",
+            "EhIKCmxhdGVuY3lfOTAYCCABKAESEgoKbGF0ZW5jeV85NRgJIAEoARISCgps",
+            "YXRlbmN5Xzk5GAogASgBEhMKC2xhdGVuY3lfOTk5GAsgASgBEhgKEHNlcnZl",
+            "cl9jcHVfdXNhZ2UYDCABKAESJgoec3VjY2Vzc2Z1bF9yZXF1ZXN0c19wZXJf",
+            "c2Vjb25kGA0gASgBEiIKGmZhaWxlZF9yZXF1ZXN0c19wZXJfc2Vjb25kGA4g",
+            "ASgBEiAKGGNsaWVudF9wb2xsc19wZXJfcmVxdWVzdBgPIAEoARIgChhzZXJ2",
+            "ZXJfcG9sbHNfcGVyX3JlcXVlc3QYECABKAESIgoac2VydmVyX3F1ZXJpZXNf",
+            "cGVyX2NwdV9zZWMYESABKAESIgoaY2xpZW50X3F1ZXJpZXNfcGVyX2NwdV9z",
+            "ZWMYEiABKAEigwMKDlNjZW5hcmlvUmVzdWx0EigKCHNjZW5hcmlvGAEgASgL",
+            "MhYuZ3JwYy50ZXN0aW5nLlNjZW5hcmlvEi4KCWxhdGVuY2llcxgCIAEoCzIb",
+            "LmdycGMudGVzdGluZy5IaXN0b2dyYW1EYXRhEi8KDGNsaWVudF9zdGF0cxgD",
+            "IAMoCzIZLmdycGMudGVzdGluZy5DbGllbnRTdGF0cxIvCgxzZXJ2ZXJfc3Rh",
+            "dHMYBCADKAsyGS5ncnBjLnRlc3RpbmcuU2VydmVyU3RhdHMSFAoMc2VydmVy",
+            "X2NvcmVzGAUgAygFEjQKB3N1bW1hcnkYBiABKAsyIy5ncnBjLnRlc3Rpbmcu",
+            "U2NlbmFyaW9SZXN1bHRTdW1tYXJ5EhYKDmNsaWVudF9zdWNjZXNzGAcgAygI",
+            "EhYKDnNlcnZlcl9zdWNjZXNzGAggAygIEjkKD3JlcXVlc3RfcmVzdWx0cxgJ",
+            "IAMoCzIgLmdycGMudGVzdGluZy5SZXF1ZXN0UmVzdWx0Q291bnQqQQoKQ2xp",
+            "ZW50VHlwZRIPCgtTWU5DX0NMSUVOVBAAEhAKDEFTWU5DX0NMSUVOVBABEhAK",
+            "DE9USEVSX0NMSUVOVBACKlsKClNlcnZlclR5cGUSDwoLU1lOQ19TRVJWRVIQ",
+            "ABIQCgxBU1lOQ19TRVJWRVIQARIYChRBU1lOQ19HRU5FUklDX1NFUlZFUhAC",
+            "EhAKDE9USEVSX1NFUlZFUhADKnIKB1JwY1R5cGUSCQoFVU5BUlkQABINCglT",
+            "VFJFQU1JTkcQARIZChVTVFJFQU1JTkdfRlJPTV9DTElFTlQQAhIZChVTVFJF",
+            "QU1JTkdfRlJPTV9TRVJWRVIQAxIXChNTVFJFQU1JTkdfQk9USF9XQVlTEARi",
+            "BnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Grpc.Testing.PayloadsReflection.Descriptor, global::Grpc.Testing.StatsReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Grpc.Testing.ClientType), typeof(global::Grpc.Testing.ServerType), typeof(global::Grpc.Testing.RpcType), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.PoissonParams), global::Grpc.Testing.PoissonParams.Parser, new[]{ "OfferedLoad" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.ClosedLoopParams), global::Grpc.Testing.ClosedLoopParams.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.LoadParams), global::Grpc.Testing.LoadParams.Parser, new[]{ "ClosedLoop", "Poisson" }, new[]{ "Load" }, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.SecurityParams), global::Grpc.Testing.SecurityParams.Parser, new[]{ "UseTestCa", "ServerHostOverride" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.SecurityParams), global::Grpc.Testing.SecurityParams.Parser, new[]{ "UseTestCa", "ServerHostOverride", "CredType" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.ChannelArg), global::Grpc.Testing.ChannelArg.Parser, new[]{ "Name", "StrValue", "IntValue" }, new[]{ "Value" }, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.ClientConfig), global::Grpc.Testing.ClientConfig.Parser, new[]{ "ServerTargets", "ClientType", "SecurityParams", "OutstandingRpcsPerChannel", "ClientChannels", "AsyncClientThreads", "RpcType", "LoadParams", "PayloadConfig", "HistogramParams", "CoreList", "CoreLimit", "OtherClientApi", "ChannelArgs" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.ClientConfig), global::Grpc.Testing.ClientConfig.Parser, new[]{ "ServerTargets", "ClientType", "SecurityParams", "OutstandingRpcsPerChannel", "ClientChannels", "AsyncClientThreads", "RpcType", "LoadParams", "PayloadConfig", "HistogramParams", "CoreList", "CoreLimit", "OtherClientApi", "ChannelArgs", "ThreadsPerCq", "MessagesPerStream", "UseCoalesceApi" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.ClientStatus), global::Grpc.Testing.ClientStatus.Parser, new[]{ "Stats" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.Mark), global::Grpc.Testing.Mark.Parser, new[]{ "Reset" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.ClientArgs), global::Grpc.Testing.ClientArgs.Parser, new[]{ "Setup", "Mark" }, new[]{ "Argtype" }, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.ServerConfig), global::Grpc.Testing.ServerConfig.Parser, new[]{ "ServerType", "SecurityParams", "Port", "AsyncServerThreads", "CoreLimit", "PayloadConfig", "CoreList", "OtherServerApi", "ResourceQuotaSize" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.ServerConfig), global::Grpc.Testing.ServerConfig.Parser, new[]{ "ServerType", "SecurityParams", "Port", "AsyncServerThreads", "CoreLimit", "PayloadConfig", "CoreList", "OtherServerApi", "ThreadsPerCq", "ResourceQuotaSize", "ChannelArgs" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.ServerArgs), global::Grpc.Testing.ServerArgs.Parser, new[]{ "Setup", "Mark" }, new[]{ "Argtype" }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.ServerStatus), global::Grpc.Testing.ServerStatus.Parser, new[]{ "Stats", "Port", "Cores" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.CoreRequest), global::Grpc.Testing.CoreRequest.Parser, null, null, null, null),
@@ -110,7 +119,7 @@ namespace Grpc.Testing {
             new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.Void), global::Grpc.Testing.Void.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.Scenario), global::Grpc.Testing.Scenario.Parser, new[]{ "Name", "ClientConfig", "NumClients", "ServerConfig", "NumServers", "WarmupSeconds", "BenchmarkSeconds", "SpawnLocalWorkerCount" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.Scenarios), global::Grpc.Testing.Scenarios.Parser, new[]{ "Scenarios_" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.ScenarioResultSummary), global::Grpc.Testing.ScenarioResultSummary.Parser, new[]{ "Qps", "QpsPerServerCore", "ServerSystemTime", "ServerUserTime", "ClientSystemTime", "ClientUserTime", "Latency50", "Latency90", "Latency95", "Latency99", "Latency999", "ServerCpuUsage", "SuccessfulRequestsPerSecond", "FailedRequestsPerSecond" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.ScenarioResultSummary), global::Grpc.Testing.ScenarioResultSummary.Parser, new[]{ "Qps", "QpsPerServerCore", "ServerSystemTime", "ServerUserTime", "ClientSystemTime", "ClientUserTime", "Latency50", "Latency90", "Latency95", "Latency99", "Latency999", "ServerCpuUsage", "SuccessfulRequestsPerSecond", "FailedRequestsPerSecond", "ClientPollsPerRequest", "ServerPollsPerRequest", "ServerQueriesPerCpuSec", "ClientQueriesPerCpuSec" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Grpc.Testing.ScenarioResult), global::Grpc.Testing.ScenarioResult.Parser, new[]{ "Scenario", "Latencies", "ClientStats", "ServerStats", "ServerCores", "Summary", "ClientSuccess", "ServerSuccess", "RequestResults" }, null, null, null)
           }));
     }
@@ -144,6 +153,9 @@ namespace Grpc.Testing {
   public enum RpcType {
     [pbr::OriginalName("UNARY")] Unary = 0,
     [pbr::OriginalName("STREAMING")] Streaming = 1,
+    [pbr::OriginalName("STREAMING_FROM_CLIENT")] StreamingFromClient = 2,
+    [pbr::OriginalName("STREAMING_FROM_SERVER")] StreamingFromServer = 3,
+    [pbr::OriginalName("STREAMING_BOTH_WAYS")] StreamingBothWays = 4,
   }
 
   #endregion
@@ -511,10 +523,16 @@ namespace Grpc.Testing {
       }
       switch (other.LoadCase) {
         case LoadOneofCase.ClosedLoop:
-          ClosedLoop = other.ClosedLoop;
+          if (ClosedLoop == null) {
+            ClosedLoop = new global::Grpc.Testing.ClosedLoopParams();
+          }
+          ClosedLoop.MergeFrom(other.ClosedLoop);
           break;
         case LoadOneofCase.Poisson:
-          Poisson = other.Poisson;
+          if (Poisson == null) {
+            Poisson = new global::Grpc.Testing.PoissonParams();
+          }
+          Poisson.MergeFrom(other.Poisson);
           break;
       }
 
@@ -581,6 +599,7 @@ namespace Grpc.Testing {
     public SecurityParams(SecurityParams other) : this() {
       useTestCa_ = other.useTestCa_;
       serverHostOverride_ = other.serverHostOverride_;
+      credType_ = other.credType_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -610,6 +629,17 @@ namespace Grpc.Testing {
       }
     }
 
+    /// <summary>Field number for the "cred_type" field.</summary>
+    public const int CredTypeFieldNumber = 3;
+    private string credType_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string CredType {
+      get { return credType_; }
+      set {
+        credType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as SecurityParams);
@@ -625,6 +655,7 @@ namespace Grpc.Testing {
       }
       if (UseTestCa != other.UseTestCa) return false;
       if (ServerHostOverride != other.ServerHostOverride) return false;
+      if (CredType != other.CredType) return false;
       return true;
     }
 
@@ -633,6 +664,7 @@ namespace Grpc.Testing {
       int hash = 1;
       if (UseTestCa != false) hash ^= UseTestCa.GetHashCode();
       if (ServerHostOverride.Length != 0) hash ^= ServerHostOverride.GetHashCode();
+      if (CredType.Length != 0) hash ^= CredType.GetHashCode();
       return hash;
     }
 
@@ -651,6 +683,10 @@ namespace Grpc.Testing {
         output.WriteRawTag(18);
         output.WriteString(ServerHostOverride);
       }
+      if (CredType.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(CredType);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -661,6 +697,9 @@ namespace Grpc.Testing {
       }
       if (ServerHostOverride.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(ServerHostOverride);
+      }
+      if (CredType.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(CredType);
       }
       return size;
     }
@@ -675,6 +714,9 @@ namespace Grpc.Testing {
       }
       if (other.ServerHostOverride.Length != 0) {
         ServerHostOverride = other.ServerHostOverride;
+      }
+      if (other.CredType.Length != 0) {
+        CredType = other.CredType;
       }
     }
 
@@ -692,6 +734,10 @@ namespace Grpc.Testing {
           }
           case 18: {
             ServerHostOverride = input.ReadString();
+            break;
+          }
+          case 26: {
+            CredType = input.ReadString();
             break;
           }
         }
@@ -942,6 +988,9 @@ namespace Grpc.Testing {
       coreLimit_ = other.coreLimit_;
       otherClientApi_ = other.otherClientApi_;
       channelArgs_ = other.channelArgs_.Clone();
+      threadsPerCq_ = other.threadsPerCq_;
+      messagesPerStream_ = other.messagesPerStream_;
+      useCoalesceApi_ = other.useCoalesceApi_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1123,6 +1172,48 @@ namespace Grpc.Testing {
       get { return channelArgs_; }
     }
 
+    /// <summary>Field number for the "threads_per_cq" field.</summary>
+    public const int ThreadsPerCqFieldNumber = 17;
+    private int threadsPerCq_;
+    /// <summary>
+    /// Number of threads that share each completion queue
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ThreadsPerCq {
+      get { return threadsPerCq_; }
+      set {
+        threadsPerCq_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "messages_per_stream" field.</summary>
+    public const int MessagesPerStreamFieldNumber = 18;
+    private int messagesPerStream_;
+    /// <summary>
+    /// Number of messages on a stream before it gets finished/restarted
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int MessagesPerStream {
+      get { return messagesPerStream_; }
+      set {
+        messagesPerStream_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "use_coalesce_api" field.</summary>
+    public const int UseCoalesceApiFieldNumber = 19;
+    private bool useCoalesceApi_;
+    /// <summary>
+    /// Use coalescing API when possible.
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool UseCoalesceApi {
+      get { return useCoalesceApi_; }
+      set {
+        useCoalesceApi_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as ClientConfig);
@@ -1150,6 +1241,9 @@ namespace Grpc.Testing {
       if (CoreLimit != other.CoreLimit) return false;
       if (OtherClientApi != other.OtherClientApi) return false;
       if(!channelArgs_.Equals(other.channelArgs_)) return false;
+      if (ThreadsPerCq != other.ThreadsPerCq) return false;
+      if (MessagesPerStream != other.MessagesPerStream) return false;
+      if (UseCoalesceApi != other.UseCoalesceApi) return false;
       return true;
     }
 
@@ -1170,6 +1264,9 @@ namespace Grpc.Testing {
       if (CoreLimit != 0) hash ^= CoreLimit.GetHashCode();
       if (OtherClientApi.Length != 0) hash ^= OtherClientApi.GetHashCode();
       hash ^= channelArgs_.GetHashCode();
+      if (ThreadsPerCq != 0) hash ^= ThreadsPerCq.GetHashCode();
+      if (MessagesPerStream != 0) hash ^= MessagesPerStream.GetHashCode();
+      if (UseCoalesceApi != false) hash ^= UseCoalesceApi.GetHashCode();
       return hash;
     }
 
@@ -1227,6 +1324,18 @@ namespace Grpc.Testing {
         output.WriteString(OtherClientApi);
       }
       channelArgs_.WriteTo(output, _repeated_channelArgs_codec);
+      if (ThreadsPerCq != 0) {
+        output.WriteRawTag(136, 1);
+        output.WriteInt32(ThreadsPerCq);
+      }
+      if (MessagesPerStream != 0) {
+        output.WriteRawTag(144, 1);
+        output.WriteInt32(MessagesPerStream);
+      }
+      if (UseCoalesceApi != false) {
+        output.WriteRawTag(152, 1);
+        output.WriteBool(UseCoalesceApi);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1268,6 +1377,15 @@ namespace Grpc.Testing {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(OtherClientApi);
       }
       size += channelArgs_.CalculateSize(_repeated_channelArgs_codec);
+      if (ThreadsPerCq != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(ThreadsPerCq);
+      }
+      if (MessagesPerStream != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(MessagesPerStream);
+      }
+      if (UseCoalesceApi != false) {
+        size += 2 + 1;
+      }
       return size;
     }
 
@@ -1324,6 +1442,15 @@ namespace Grpc.Testing {
         OtherClientApi = other.OtherClientApi;
       }
       channelArgs_.Add(other.channelArgs_);
+      if (other.ThreadsPerCq != 0) {
+        ThreadsPerCq = other.ThreadsPerCq;
+      }
+      if (other.MessagesPerStream != 0) {
+        MessagesPerStream = other.MessagesPerStream;
+      }
+      if (other.UseCoalesceApi != false) {
+        UseCoalesceApi = other.UseCoalesceApi;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1401,6 +1528,18 @@ namespace Grpc.Testing {
           }
           case 130: {
             channelArgs_.AddEntriesFrom(input, _repeated_channelArgs_codec);
+            break;
+          }
+          case 136: {
+            ThreadsPerCq = input.ReadInt32();
+            break;
+          }
+          case 144: {
+            MessagesPerStream = input.ReadInt32();
+            break;
+          }
+          case 152: {
+            UseCoalesceApi = input.ReadBool();
             break;
           }
         }
@@ -1800,10 +1939,16 @@ namespace Grpc.Testing {
       }
       switch (other.ArgtypeCase) {
         case ArgtypeOneofCase.Setup:
-          Setup = other.Setup;
+          if (Setup == null) {
+            Setup = new global::Grpc.Testing.ClientConfig();
+          }
+          Setup.MergeFrom(other.Setup);
           break;
         case ArgtypeOneofCase.Mark:
-          Mark = other.Mark;
+          if (Mark == null) {
+            Mark = new global::Grpc.Testing.Mark();
+          }
+          Mark.MergeFrom(other.Mark);
           break;
       }
 
@@ -1873,7 +2018,9 @@ namespace Grpc.Testing {
       PayloadConfig = other.payloadConfig_ != null ? other.PayloadConfig.Clone() : null;
       coreList_ = other.coreList_.Clone();
       otherServerApi_ = other.otherServerApi_;
+      threadsPerCq_ = other.threadsPerCq_;
       resourceQuotaSize_ = other.resourceQuotaSize_;
+      channelArgs_ = other.channelArgs_.Clone();
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1989,6 +2136,20 @@ namespace Grpc.Testing {
       }
     }
 
+    /// <summary>Field number for the "threads_per_cq" field.</summary>
+    public const int ThreadsPerCqFieldNumber = 12;
+    private int threadsPerCq_;
+    /// <summary>
+    /// Number of threads that share each completion queue
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ThreadsPerCq {
+      get { return threadsPerCq_; }
+      set {
+        threadsPerCq_ = value;
+      }
+    }
+
     /// <summary>Field number for the "resource_quota_size" field.</summary>
     public const int ResourceQuotaSizeFieldNumber = 1001;
     private int resourceQuotaSize_;
@@ -2001,6 +2162,16 @@ namespace Grpc.Testing {
       set {
         resourceQuotaSize_ = value;
       }
+    }
+
+    /// <summary>Field number for the "channel_args" field.</summary>
+    public const int ChannelArgsFieldNumber = 1002;
+    private static readonly pb::FieldCodec<global::Grpc.Testing.ChannelArg> _repeated_channelArgs_codec
+        = pb::FieldCodec.ForMessage(8018, global::Grpc.Testing.ChannelArg.Parser);
+    private readonly pbc::RepeatedField<global::Grpc.Testing.ChannelArg> channelArgs_ = new pbc::RepeatedField<global::Grpc.Testing.ChannelArg>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Grpc.Testing.ChannelArg> ChannelArgs {
+      get { return channelArgs_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2024,7 +2195,9 @@ namespace Grpc.Testing {
       if (!object.Equals(PayloadConfig, other.PayloadConfig)) return false;
       if(!coreList_.Equals(other.coreList_)) return false;
       if (OtherServerApi != other.OtherServerApi) return false;
+      if (ThreadsPerCq != other.ThreadsPerCq) return false;
       if (ResourceQuotaSize != other.ResourceQuotaSize) return false;
+      if(!channelArgs_.Equals(other.channelArgs_)) return false;
       return true;
     }
 
@@ -2039,7 +2212,9 @@ namespace Grpc.Testing {
       if (payloadConfig_ != null) hash ^= PayloadConfig.GetHashCode();
       hash ^= coreList_.GetHashCode();
       if (OtherServerApi.Length != 0) hash ^= OtherServerApi.GetHashCode();
+      if (ThreadsPerCq != 0) hash ^= ThreadsPerCq.GetHashCode();
       if (ResourceQuotaSize != 0) hash ^= ResourceQuotaSize.GetHashCode();
+      hash ^= channelArgs_.GetHashCode();
       return hash;
     }
 
@@ -2079,10 +2254,15 @@ namespace Grpc.Testing {
         output.WriteRawTag(90);
         output.WriteString(OtherServerApi);
       }
+      if (ThreadsPerCq != 0) {
+        output.WriteRawTag(96);
+        output.WriteInt32(ThreadsPerCq);
+      }
       if (ResourceQuotaSize != 0) {
         output.WriteRawTag(200, 62);
         output.WriteInt32(ResourceQuotaSize);
       }
+      channelArgs_.WriteTo(output, _repeated_channelArgs_codec);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2110,9 +2290,13 @@ namespace Grpc.Testing {
       if (OtherServerApi.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(OtherServerApi);
       }
+      if (ThreadsPerCq != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ThreadsPerCq);
+      }
       if (ResourceQuotaSize != 0) {
         size += 2 + pb::CodedOutputStream.ComputeInt32Size(ResourceQuotaSize);
       }
+      size += channelArgs_.CalculateSize(_repeated_channelArgs_codec);
       return size;
     }
 
@@ -2149,9 +2333,13 @@ namespace Grpc.Testing {
       if (other.OtherServerApi.Length != 0) {
         OtherServerApi = other.OtherServerApi;
       }
+      if (other.ThreadsPerCq != 0) {
+        ThreadsPerCq = other.ThreadsPerCq;
+      }
       if (other.ResourceQuotaSize != 0) {
         ResourceQuotaSize = other.ResourceQuotaSize;
       }
+      channelArgs_.Add(other.channelArgs_);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2201,8 +2389,16 @@ namespace Grpc.Testing {
             OtherServerApi = input.ReadString();
             break;
           }
+          case 96: {
+            ThreadsPerCq = input.ReadInt32();
+            break;
+          }
           case 8008: {
             ResourceQuotaSize = input.ReadInt32();
+            break;
+          }
+          case 8018: {
+            channelArgs_.AddEntriesFrom(input, _repeated_channelArgs_codec);
             break;
           }
         }
@@ -2356,10 +2552,16 @@ namespace Grpc.Testing {
       }
       switch (other.ArgtypeCase) {
         case ArgtypeOneofCase.Setup:
-          Setup = other.Setup;
+          if (Setup == null) {
+            Setup = new global::Grpc.Testing.ServerConfig();
+          }
+          Setup.MergeFrom(other.Setup);
           break;
         case ArgtypeOneofCase.Mark:
-          Mark = other.Mark;
+          if (Mark == null) {
+            Mark = new global::Grpc.Testing.Mark();
+          }
+          Mark.MergeFrom(other.Mark);
           break;
       }
 
@@ -3386,6 +3588,10 @@ namespace Grpc.Testing {
       serverCpuUsage_ = other.serverCpuUsage_;
       successfulRequestsPerSecond_ = other.successfulRequestsPerSecond_;
       failedRequestsPerSecond_ = other.failedRequestsPerSecond_;
+      clientPollsPerRequest_ = other.clientPollsPerRequest_;
+      serverPollsPerRequest_ = other.serverPollsPerRequest_;
+      serverQueriesPerCpuSec_ = other.serverQueriesPerCpuSec_;
+      clientQueriesPerCpuSec_ = other.clientQueriesPerCpuSec_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3574,6 +3780,56 @@ namespace Grpc.Testing {
       }
     }
 
+    /// <summary>Field number for the "client_polls_per_request" field.</summary>
+    public const int ClientPollsPerRequestFieldNumber = 15;
+    private double clientPollsPerRequest_;
+    /// <summary>
+    /// Number of polls called inside completion queue per request
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public double ClientPollsPerRequest {
+      get { return clientPollsPerRequest_; }
+      set {
+        clientPollsPerRequest_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "server_polls_per_request" field.</summary>
+    public const int ServerPollsPerRequestFieldNumber = 16;
+    private double serverPollsPerRequest_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public double ServerPollsPerRequest {
+      get { return serverPollsPerRequest_; }
+      set {
+        serverPollsPerRequest_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "server_queries_per_cpu_sec" field.</summary>
+    public const int ServerQueriesPerCpuSecFieldNumber = 17;
+    private double serverQueriesPerCpuSec_;
+    /// <summary>
+    /// Queries per CPU-sec over all servers or clients
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public double ServerQueriesPerCpuSec {
+      get { return serverQueriesPerCpuSec_; }
+      set {
+        serverQueriesPerCpuSec_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "client_queries_per_cpu_sec" field.</summary>
+    public const int ClientQueriesPerCpuSecFieldNumber = 18;
+    private double clientQueriesPerCpuSec_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public double ClientQueriesPerCpuSec {
+      get { return clientQueriesPerCpuSec_; }
+      set {
+        clientQueriesPerCpuSec_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as ScenarioResultSummary);
@@ -3601,6 +3857,10 @@ namespace Grpc.Testing {
       if (ServerCpuUsage != other.ServerCpuUsage) return false;
       if (SuccessfulRequestsPerSecond != other.SuccessfulRequestsPerSecond) return false;
       if (FailedRequestsPerSecond != other.FailedRequestsPerSecond) return false;
+      if (ClientPollsPerRequest != other.ClientPollsPerRequest) return false;
+      if (ServerPollsPerRequest != other.ServerPollsPerRequest) return false;
+      if (ServerQueriesPerCpuSec != other.ServerQueriesPerCpuSec) return false;
+      if (ClientQueriesPerCpuSec != other.ClientQueriesPerCpuSec) return false;
       return true;
     }
 
@@ -3621,6 +3881,10 @@ namespace Grpc.Testing {
       if (ServerCpuUsage != 0D) hash ^= ServerCpuUsage.GetHashCode();
       if (SuccessfulRequestsPerSecond != 0D) hash ^= SuccessfulRequestsPerSecond.GetHashCode();
       if (FailedRequestsPerSecond != 0D) hash ^= FailedRequestsPerSecond.GetHashCode();
+      if (ClientPollsPerRequest != 0D) hash ^= ClientPollsPerRequest.GetHashCode();
+      if (ServerPollsPerRequest != 0D) hash ^= ServerPollsPerRequest.GetHashCode();
+      if (ServerQueriesPerCpuSec != 0D) hash ^= ServerQueriesPerCpuSec.GetHashCode();
+      if (ClientQueriesPerCpuSec != 0D) hash ^= ClientQueriesPerCpuSec.GetHashCode();
       return hash;
     }
 
@@ -3687,6 +3951,22 @@ namespace Grpc.Testing {
         output.WriteRawTag(113);
         output.WriteDouble(FailedRequestsPerSecond);
       }
+      if (ClientPollsPerRequest != 0D) {
+        output.WriteRawTag(121);
+        output.WriteDouble(ClientPollsPerRequest);
+      }
+      if (ServerPollsPerRequest != 0D) {
+        output.WriteRawTag(129, 1);
+        output.WriteDouble(ServerPollsPerRequest);
+      }
+      if (ServerQueriesPerCpuSec != 0D) {
+        output.WriteRawTag(137, 1);
+        output.WriteDouble(ServerQueriesPerCpuSec);
+      }
+      if (ClientQueriesPerCpuSec != 0D) {
+        output.WriteRawTag(145, 1);
+        output.WriteDouble(ClientQueriesPerCpuSec);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3733,6 +4013,18 @@ namespace Grpc.Testing {
       }
       if (FailedRequestsPerSecond != 0D) {
         size += 1 + 8;
+      }
+      if (ClientPollsPerRequest != 0D) {
+        size += 1 + 8;
+      }
+      if (ServerPollsPerRequest != 0D) {
+        size += 2 + 8;
+      }
+      if (ServerQueriesPerCpuSec != 0D) {
+        size += 2 + 8;
+      }
+      if (ClientQueriesPerCpuSec != 0D) {
+        size += 2 + 8;
       }
       return size;
     }
@@ -3783,6 +4075,18 @@ namespace Grpc.Testing {
       }
       if (other.FailedRequestsPerSecond != 0D) {
         FailedRequestsPerSecond = other.FailedRequestsPerSecond;
+      }
+      if (other.ClientPollsPerRequest != 0D) {
+        ClientPollsPerRequest = other.ClientPollsPerRequest;
+      }
+      if (other.ServerPollsPerRequest != 0D) {
+        ServerPollsPerRequest = other.ServerPollsPerRequest;
+      }
+      if (other.ServerQueriesPerCpuSec != 0D) {
+        ServerQueriesPerCpuSec = other.ServerQueriesPerCpuSec;
+      }
+      if (other.ClientQueriesPerCpuSec != 0D) {
+        ClientQueriesPerCpuSec = other.ClientQueriesPerCpuSec;
       }
     }
 
@@ -3848,6 +4152,22 @@ namespace Grpc.Testing {
           }
           case 113: {
             FailedRequestsPerSecond = input.ReadDouble();
+            break;
+          }
+          case 121: {
+            ClientPollsPerRequest = input.ReadDouble();
+            break;
+          }
+          case 129: {
+            ServerPollsPerRequest = input.ReadDouble();
+            break;
+          }
+          case 137: {
+            ServerQueriesPerCpuSec = input.ReadDouble();
+            break;
+          }
+          case 145: {
+            ClientQueriesPerCpuSec = input.ReadDouble();
             break;
           }
         }
