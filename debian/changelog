@@ -1,7 +1,7 @@
 grpc (1.11.0-1) experimental; urgency=medium
 
   [ Pirate Praveen <praveen@debian.org> ]
-  * New upstream release
+  * New upstream release (Closes: #875747)
   * Refresh patches
   * Tighten dependencies
   * Bump standards version to 4.1.4
