@@ -12,7 +12,7 @@ Vcs-Browser: https://github.com/grpc/grpc
 Package: libgrpc-dev
 Section: libdevel
 Architecture: any
-Depends: libgrpc3 (= ${binary:Version}), ${misc:Depends}
+Depends: libgrpc6 (= ${binary:Version}), ${misc:Depends}
 Description: high performance general RPC framework (development)
  A modern, open source remote procedure call (RPC) framework that can
  run anywhere. It enables client and server applications to communicate
@@ -20,7 +20,7 @@ Description: high performance general RPC framework (development)
  .
  This package contains the headers and the static library for libgrpc3.
 
-Package: libgrpc3
+Package: libgrpc6
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: high performance general RPC framework
