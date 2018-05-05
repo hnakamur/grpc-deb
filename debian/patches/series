@@ -2,3 +2,4 @@ no-werror.diff
 unvendor-zlib.diff
 fix-libgrpc++-soname.diff
 add-wrap-memcpy-flags.diff
+install_libdir.patch
