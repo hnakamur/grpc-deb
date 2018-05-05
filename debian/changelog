@@ -16,6 +16,7 @@ grpc (1.11.0-1) experimental; urgency=medium
   * Add patch for multiarch library installation.
   * Make the package multiarch.
   * Update d/copyright to match source.
+  * Be the maintainer, Andrew seems to be MIA.
 
  -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Fri, 04 May 2018 17:04:13 +0000
 
