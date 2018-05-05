@@ -6,11 +6,13 @@ grpc (1.11.0-1) experimental; urgency=medium
   * Tighten dependencies
   * Bump standards version to 4.1.4
   * Bump debhelper compat to 11
+  * Library transition from libgrpc3 to libgrpc6 .
 
   [ Laszlo Boszormenyi (GCS) ]
   * Don't specify parallel to debhelper.
   * Install new C++ headers.
   * Install upstream NOTICE.txt to protobuf-compiler-grpc package.
+  * Update packaging bits.
 
  -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Fri, 04 May 2018 17:04:13 +0000
 

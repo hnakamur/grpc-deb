@@ -43,7 +43,8 @@ License: BSD-3-clause
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 Files: debian/*
-Copyright: 2015 Andrew Pollock <apollock@debian.org>
+Copyright: 2015-2016 Andrew Pollock <apollock@debian.org>
+           2017-     Laszlo Boszormenyi (GCS) <gcs@debian.org>
 License: GPL-2+
  This package is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by

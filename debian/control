@@ -18,7 +18,7 @@ Description: high performance general RPC framework (development)
  run anywhere. It enables client and server applications to communicate
  transparently, and makes it easier to build connected systems.
  .
- This package contains the headers and the static library for libgrpc3.
+ This package contains the headers and the static library for libgrpc6.
 
 Package: libgrpc6
 Architecture: any

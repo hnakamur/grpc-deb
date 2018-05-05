@@ -15,7 +15,7 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 #export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
 override_dh_auto_build:
-	make shared prefix=/usr
+	$(MAKE) shared prefix=/usr
 
 override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
@@ -23,7 +23,9 @@ ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 endif
 
 override_dh_auto_install:
-	make install prefix=$(CURDIR)/debian/tmp/usr
+	$(MAKE) install prefix=$(CURDIR)/debian/tmp/usr
 
 %:
-	dh $@
+	dh $@ --list-missing
+
+.PHONY: override_dh_auto_build override_dh_auto_install
