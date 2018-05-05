@@ -12,6 +12,7 @@ Vcs-Browser: https://github.com/grpc/grpc
 Package: libgrpc-dev
 Section: libdevel
 Architecture: any
+Multi-Arch: same
 Depends: libgrpc6 (= ${binary:Version}), ${misc:Depends}
 Description: high performance general RPC framework (development)
  A modern, open source remote procedure call (RPC) framework that can
@@ -22,6 +23,7 @@ Description: high performance general RPC framework (development)
 
 Package: libgrpc6
 Architecture: any
+Multi-Arch: same
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: high performance general RPC framework
  A modern, open source remote procedure call (RPC) framework that can
@@ -33,6 +35,7 @@ Description: high performance general RPC framework
 Package: libgrpc++-dev
 Section: libdevel
 Architecture: any
+Multi-Arch: same
 Depends: libgrpc++1 (= ${binary:Version}), libgrpc-dev (=${binary:Version}), ${misc:Depends}
 Description: high performance general RPC framework (development)
  A modern, open source remote procedure call (RPC) framework that can
@@ -43,6 +46,7 @@ Description: high performance general RPC framework (development)
 
 Package: libgrpc++1
 Architecture: any
+Multi-Arch: same
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: high performance general RPC framework
  A modern, open source remote procedure call (RPC) framework that can

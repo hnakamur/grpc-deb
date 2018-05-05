@@ -14,6 +14,7 @@ grpc (1.11.0-1) experimental; urgency=medium
   * Install upstream NOTICE.txt to protobuf-compiler-grpc package.
   * Update packaging bits.
   * Add patch for multiarch library installation.
+  * Make the package multiarch.
 
  -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Fri, 04 May 2018 17:04:13 +0000
 
