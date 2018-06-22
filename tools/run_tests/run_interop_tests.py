@@ -638,10 +638,10 @@ _LANGUAGES_WITH_HTTP2_CLIENTS_FOR_HTTP2_SERVER_TEST_CASES = [
 ]
 
 #TODO: Add c++ when c++ ALTS interop client is ready.
-_LANGUAGES_FOR_ALTS_TEST_CASES = ['java', 'go']
+_LANGUAGES_FOR_ALTS_TEST_CASES = ['java', 'go', 'c++']
 
 #TODO: Add c++ when c++ ALTS interop server is ready.
-_SERVERS_FOR_ALTS_TEST_CASES = ['java', 'go']
+_SERVERS_FOR_ALTS_TEST_CASES = ['java', 'go', 'c++']
 
 _TRANSPORT_SECURITY_OPTIONS = ['tls', 'alts', 'insecure']
 
@@ -699,17 +699,29 @@ def bash_cmdline(cmdline):
     return ['bash', '-c', ' '.join(cmdline)]
 
 
-def auth_options(language, test_case):
+def compute_engine_creds_required(language, test_case):
+    """Returns True if given test requires access to compute engine creds."""
+    language = str(language)
+    if test_case == 'compute_engine_creds':
+        return True
+    if test_case == 'oauth2_auth_token' and language == 'c++':
+        # C++ oauth2 test uses GCE creds because C++ only supports JWT
+        return True
+    return False
+
+
+def auth_options(language, test_case, service_account_key_file=None):
     """Returns (cmdline, env) tuple with cloud_to_prod_auth test options."""
 
     language = str(language)
     cmdargs = []
     env = {}
 
-    # TODO(jtattermusch): this file path only works inside docker
-    key_filepath = '/root/service_account/GrpcTesting-726eb1347f15.json'
+    if not service_account_key_file:
+        # this file path only works inside docker
+        service_account_key_file = '/root/service_account/GrpcTesting-726eb1347f15.json'
     oauth_scope_arg = '--oauth_scope=https://www.googleapis.com/auth/xapi.zoo'
-    key_file_arg = '--service_account_key_file=%s' % key_filepath
+    key_file_arg = '--service_account_key_file=%s' % service_account_key_file
     default_account_arg = '--default_service_account=830293263384-compute@developer.gserviceaccount.com'
 
     if test_case in ['jwt_token_creds', 'per_rpc_creds', 'oauth2_auth_token']:
@@ -717,7 +729,7 @@ def auth_options(language, test_case):
                 'csharp', 'csharpcoreclr', 'node', 'php', 'php7', 'python',
                 'ruby', 'nodepurejs'
         ]:
-            env['GOOGLE_APPLICATION_CREDENTIALS'] = key_filepath
+            env['GOOGLE_APPLICATION_CREDENTIALS'] = service_account_key_file
         else:
             cmdargs += [key_file_arg]
 
@@ -746,22 +758,24 @@ def _job_kill_handler(job):
 
 def cloud_to_prod_jobspec(language,
                           test_case,
-                          server_host_name,
-                          server_host_detail,
+                          server_host_nickname,
+                          server_host,
                           docker_image=None,
                           auth=False,
-                          manual_cmd_log=None):
+                          manual_cmd_log=None,
+                          service_account_key_file=None):
     """Creates jobspec for cloud-to-prod interop test"""
     container_name = None
     cmdargs = [
-        '--server_host=%s' % server_host_detail[0],
-        '--server_host_override=%s' % server_host_detail[1],
-        '--server_port=443', '--use_tls=true',
+        '--server_host=%s' % server_host,
+        '--server_host_override=%s' % server_host, '--server_port=443',
+        '--use_tls=true',
         '--test_case=%s' % test_case
     ]
     environ = dict(language.cloud_to_prod_env(), **language.global_env())
     if auth:
-        auth_cmdargs, auth_env = auth_options(language, test_case)
+        auth_cmdargs, auth_env = auth_options(language, test_case,
+                                              service_account_key_file)
         cmdargs += auth_cmdargs
         environ.update(auth_env)
     cmdline = bash_cmdline(language.client_cmd(cmdargs))
@@ -790,7 +804,7 @@ def cloud_to_prod_jobspec(language,
         cmdline=cmdline,
         cwd=cwd,
         environ=environ,
-        shortname='%s:%s:%s:%s' % (suite_name, language, server_host_name,
+        shortname='%s:%s:%s:%s' % (suite_name, language, server_host_nickname,
                                    test_case),
         timeout_seconds=_TEST_TIMEOUT,
         flake_retries=4 if args.allow_flakes else 0,
@@ -1009,19 +1023,9 @@ def aggregate_http2_results(stdout):
 
 
 # A dictionary of prod servers to test.
-# Format: server_name: (server_host, server_host_override, errors_allowed)
-# TODO(adelez): implement logic for errors_allowed where if the indicated tests
-# fail, they don't impact the overall test result.
 prod_servers = {
-    'default': ('216.239.32.254', 'grpc-test.sandbox.googleapis.com', False),
-    'gateway_v2': ('216.239.32.254', 'grpc-test2.sandbox.googleapis.com', True),
-    'cloud_gateway': ('216.239.32.255', 'grpc-test.sandbox.googleapis.com',
-                      False),
-    'cloud_gateway_v2': ('216.239.32.255', 'grpc-test2.sandbox.googleapis.com',
-                         True),
-    'gateway_v4': ('216.239.32.254', 'grpc-test4.sandbox.googleapis.com', True),
-    'cloud_gateway_v4': ('216.239.32.255', 'grpc-test4.sandbox.googleapis.com',
-                         True),
+    'default': 'grpc-test.sandbox.googleapis.com',
+    'gateway_v4': 'grpc-test4.sandbox.googleapis.com',
 }
 
 argp = argparse.ArgumentParser(description='Run interop tests.')
@@ -1068,6 +1072,12 @@ argp.add_argument(
     help=
     'Use servername=HOST:PORT to explicitly specify a server. E.g. csharp=localhost:50000',
     default=[])
+argp.add_argument(
+    '--service_account_key_file',
+    type=str,
+    help=
+    'Override the default service account key file to use for auth interop tests.',
+    default=None)
 argp.add_argument(
     '-t', '--travis', default=False, action='store_const', const=True)
 argp.add_argument(
@@ -1118,6 +1128,12 @@ argp.add_argument(
     nargs='?',
     const=True,
     help='Which transport security mechanism to use.')
+argp.add_argument(
+    '--skip_compute_engine_creds',
+    default=False,
+    action='store_const',
+    const=True,
+    help='Skip auth tests requiring access to compute engine credentials.')
 argp.add_argument(
     '--internal_ci',
     default=False,
@@ -1271,7 +1287,7 @@ try:
     if args.cloud_to_prod:
         if args.transport_security != 'tls':
             print('TLS is always enabled for cloud_to_prod scenarios.')
-        for server_host_name in args.prod_servers:
+        for server_host_nickname in args.prod_servers:
             for language in languages:
                 for test_case in _TEST_CASES:
                     if not test_case in language.unimplemented_test_cases():
@@ -1279,10 +1295,12 @@ try:
                             test_job = cloud_to_prod_jobspec(
                                 language,
                                 test_case,
-                                server_host_name,
-                                prod_servers[server_host_name],
+                                server_host_nickname,
+                                prod_servers[server_host_nickname],
                                 docker_image=docker_images.get(str(language)),
-                                manual_cmd_log=client_manual_cmd_log)
+                                manual_cmd_log=client_manual_cmd_log,
+                                service_account_key_file=args.
+                                service_account_key_file)
                             jobs.append(test_job)
 
             if args.http2_interop:
@@ -1290,28 +1308,34 @@ try:
                     test_job = cloud_to_prod_jobspec(
                         http2Interop,
                         test_case,
-                        server_host_name,
-                        prod_servers[server_host_name],
+                        server_host_nickname,
+                        prod_servers[server_host_nickname],
                         docker_image=docker_images.get(str(http2Interop)),
-                        manual_cmd_log=client_manual_cmd_log)
+                        manual_cmd_log=client_manual_cmd_log,
+                        service_account_key_file=args.service_account_key_file)
                     jobs.append(test_job)
 
     if args.cloud_to_prod_auth:
         if args.transport_security != 'tls':
             print('TLS is always enabled for cloud_to_prod scenarios.')
-        for server_host_name in args.prod_servers:
+        for server_host_nickname in args.prod_servers:
             for language in languages:
                 for test_case in _AUTH_TEST_CASES:
-                    if not test_case in language.unimplemented_test_cases():
-                        test_job = cloud_to_prod_jobspec(
-                            language,
-                            test_case,
-                            server_host_name,
-                            prod_servers[server_host_name],
-                            docker_image=docker_images.get(str(language)),
-                            auth=True,
-                            manual_cmd_log=client_manual_cmd_log)
-                        jobs.append(test_job)
+                    if (not args.skip_compute_engine_creds or
+                            not compute_engine_creds_required(
+                                language, test_case)):
+                        if not test_case in language.unimplemented_test_cases():
+                            test_job = cloud_to_prod_jobspec(
+                                language,
+                                test_case,
+                                server_host_nickname,
+                                prod_servers[server_host_nickname],
+                                docker_image=docker_images.get(str(language)),
+                                auth=True,
+                                manual_cmd_log=client_manual_cmd_log,
+                                service_account_key_file=args.
+                                service_account_key_file)
+                            jobs.append(test_job)
 
     for server in args.override_server:
         server_name = server[0]
@@ -1442,12 +1466,6 @@ try:
 
     http2_server_test_cases = (_HTTP2_SERVER_TEST_CASES
                                if args.http2_server_interop else [])
-
-    report_utils.render_interop_html_report(
-        set([str(l) for l in languages]), servers, _TEST_CASES,
-        _AUTH_TEST_CASES, _HTTP2_TEST_CASES, http2_server_test_cases, resultset,
-        num_failures, args.cloud_to_prod_auth or args.cloud_to_prod,
-        args.prod_servers, args.http2_interop)
 
     if num_failures:
         sys.exit(1)
