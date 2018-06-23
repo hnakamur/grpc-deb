@@ -53,7 +53,7 @@
   "unit._server_ssl_cert_config_test.ServerSSLCertReloadTestCertConfigReuse",
   "unit._server_ssl_cert_config_test.ServerSSLCertReloadTestWithClientAuth",
   "unit._server_ssl_cert_config_test.ServerSSLCertReloadTestWithoutClientAuth",
-  "unit._thread_cleanup_test.CleanupThreadTest",
+  "unit._session_cache_test.SSLSessionCacheTest",
   "unit.beta._beta_features_test.BetaFeaturesTest",
   "unit.beta._beta_features_test.ContextManagementAndLifecycleTest",
   "unit.beta._connectivity_channel_test.ConnectivityStatesTest",

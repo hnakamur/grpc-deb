@@ -490,6 +490,14 @@ class CLanguage(object):
             return 'Makefile'
 
     def _clang_make_options(self, version_suffix=''):
+        if self.args.config == 'ubsan':
+            return [
+                'CC=clang%s' % version_suffix,
+                'CXX=clang++%s' % version_suffix,
+                'LD=clang++%s' % version_suffix,
+                'LDXX=clang++%s' % version_suffix
+            ]
+
         return [
             'CC=clang%s' % version_suffix,
             'CXX=clang++%s' % version_suffix,
@@ -531,6 +539,10 @@ class CLanguage(object):
         elif compiler == 'clang3.7':
             return ('ubuntu1604',
                     self._clang_make_options(version_suffix='-3.7'))
+        elif compiler == 'clang7.0':
+            # clang++-7.0 alias doesn't exist and there are no other clang versions
+            # installed.
+            return ('sanitizers_jessie', self._clang_make_options())
         else:
             raise Exception('Compiler %s not supported.' % compiler)
 
@@ -1102,6 +1114,12 @@ class ObjCLanguage(object):
                     'SCHEME': 'SwiftSample',
                     'EXAMPLE_PATH': 'src/objective-c/examples/SwiftSample'
                 }),
+            self.config.job_spec(
+                ['test/core/iomgr/ios/CFStreamTests/run_tests.sh'],
+                timeout_seconds=10 * 60,
+                shortname='cfstream-tests',
+                cpu_cost=1e6,
+                environ=_FORCE_ENVIRON_FOR_WRAPPERS),
         ]
 
     def pre_build_steps(self):
@@ -1114,7 +1132,10 @@ class ObjCLanguage(object):
         return []
 
     def build_steps(self):
-        return [['src/objective-c/tests/build_tests.sh']]
+        return [
+            ['src/objective-c/tests/build_tests.sh'],
+            ['test/core/iomgr/ios/CFStreamTests/build_tests.sh'],
+        ]
 
     def post_tests_steps(self):
         return []
@@ -1343,10 +1364,10 @@ argp.add_argument(
     '--compiler',
     choices=[
         'default', 'gcc4.4', 'gcc4.6', 'gcc4.8', 'gcc4.9', 'gcc5.3', 'gcc7.2',
-        'gcc_musl', 'clang3.4', 'clang3.5', 'clang3.6', 'clang3.7', 'python2.7',
-        'python3.4', 'python3.5', 'python3.6', 'pypy', 'pypy3', 'python_alpine',
-        'all_the_cpythons', 'electron1.3', 'electron1.6', 'coreclr', 'cmake',
-        'cmake_vs2015', 'cmake_vs2017'
+        'gcc_musl', 'clang3.4', 'clang3.5', 'clang3.6', 'clang3.7', 'clang7.0',
+        'python2.7', 'python3.4', 'python3.5', 'python3.6', 'pypy', 'pypy3',
+        'python_alpine', 'all_the_cpythons', 'electron1.3', 'electron1.6',
+        'coreclr', 'cmake', 'cmake_vs2015', 'cmake_vs2017'
     ],
     default='default',
     help=
@@ -1490,7 +1511,7 @@ else:
     lang_list = args.language
 # We don't support code coverage on some languages
 if 'gcov' in args.config:
-    for bad in ['objc', 'sanity']:
+    for bad in ['grpc-node', 'objc', 'sanity']:
         if bad in lang_list:
             lang_list.remove(bad)
 

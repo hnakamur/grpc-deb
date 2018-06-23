@@ -146,7 +146,15 @@ if __name__ == "__main__":
             test_cases = [{
                 'testCase': {
                     'caseName': str(action['id']['actionId']),
-                    'result': str(action['statusAttributes']['status'])
+                }
+            }]
+        # Test timeouts have a different dictionary structure compared to pass and
+        # fail results.
+        elif action['statusAttributes']['status'] == 'TIMED_OUT':
+            test_cases = [{
+                'testCase': {
+                    'caseName': str(action['id']['actionId']),
+                    'timedOut': True
                 }
             }]
         else:
@@ -155,6 +163,8 @@ if __name__ == "__main__":
         for test_case in test_cases:
             if 'errors' in test_case['testCase']:
                 result = 'FAILED'
+            elif 'timedOut' in test_case['testCase']:
+                result = 'TIMEOUT'
             else:
                 result = 'PASSED'
             bq_rows.append({
@@ -165,8 +175,8 @@ if __name__ == "__main__":
                     'build_id':
                     os.getenv('KOKORO_BUILD_NUMBER'),
                     'build_url':
-                    'https://sponge.corp.google.com/invocation?id=%s' %
-                    os.getenv('KOKORO_BUILD_ID'),
+                    'https://source.cloud.google.com/results/invocations/%s' %
+                    invocation_id,
                     'test_target':
                     action['id']['targetId'],
                     'test_case':

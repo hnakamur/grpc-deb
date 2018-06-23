@@ -20,7 +20,9 @@ Gem::Specification.new do |s|
   s.files += Dir.glob('src/ruby/bin/**/*')
   s.files += Dir.glob('src/ruby/ext/**/*')
   s.files += Dir.glob('src/ruby/lib/**/*')
-  s.files += Dir.glob('src/ruby/pb/**/*')
+  s.files += Dir.glob('src/ruby/pb/**/*').reject do |f|
+    f.match(%r{^src/ruby/pb/test})
+  end
   s.files += Dir.glob('include/grpc/**/*')
   s.test_files = Dir.glob('src/ruby/spec/**/*')
   s.bindir = 'src/ruby/bin'
@@ -28,7 +30,6 @@ Gem::Specification.new do |s|
   s.platform      = Gem::Platform::RUBY
 
   s.add_dependency 'google-protobuf', '~> 3.1'
-  s.add_dependency 'googleauth',      '>= 0.5.1', '< 0.7'
   s.add_dependency 'googleapis-common-protos-types', '~> 1.0.0'
 
   s.add_development_dependency 'bundler',            '~> 1.9'
@@ -41,6 +42,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec',              '~> 3.6'
   s.add_development_dependency 'rubocop',            '~> 0.49.1'
   s.add_development_dependency 'signet',             '~> 0.7.0'
+  s.add_development_dependency 'googleauth',         '>= 0.5.1', '< 0.7'
 
   s.extensions = %w(src/ruby/ext/grpc/extconf.rb)
 
@@ -81,7 +83,6 @@ Gem::Specification.new do |s|
   s.files += %w( include/grpc/impl/codegen/sync_windows.h )
   s.files += %w( src/core/lib/gpr/arena.h )
   s.files += %w( src/core/lib/gpr/env.h )
-  s.files += %w( src/core/lib/gpr/fork.h )
   s.files += %w( src/core/lib/gpr/host_port.h )
   s.files += %w( src/core/lib/gpr/mpscq.h )
   s.files += %w( src/core/lib/gpr/murmur_hash.h )
@@ -99,6 +100,7 @@ Gem::Specification.new do |s|
   s.files += %w( src/core/lib/gprpp/atomic.h )
   s.files += %w( src/core/lib/gprpp/atomic_with_atm.h )
   s.files += %w( src/core/lib/gprpp/atomic_with_std.h )
+  s.files += %w( src/core/lib/gprpp/fork.h )
   s.files += %w( src/core/lib/gprpp/manual_constructor.h )
   s.files += %w( src/core/lib/gprpp/memory.h )
   s.files += %w( src/core/lib/gprpp/thd.h )
@@ -113,7 +115,6 @@ Gem::Specification.new do |s|
   s.files += %w( src/core/lib/gpr/env_linux.cc )
   s.files += %w( src/core/lib/gpr/env_posix.cc )
   s.files += %w( src/core/lib/gpr/env_windows.cc )
-  s.files += %w( src/core/lib/gpr/fork.cc )
   s.files += %w( src/core/lib/gpr/host_port.cc )
   s.files += %w( src/core/lib/gpr/log.cc )
   s.files += %w( src/core/lib/gpr/log_android.cc )
@@ -138,6 +139,7 @@ Gem::Specification.new do |s|
   s.files += %w( src/core/lib/gpr/tmpfile_posix.cc )
   s.files += %w( src/core/lib/gpr/tmpfile_windows.cc )
   s.files += %w( src/core/lib/gpr/wrap_memcpy.cc )
+  s.files += %w( src/core/lib/gprpp/fork.cc )
   s.files += %w( src/core/lib/gprpp/thd_posix.cc )
   s.files += %w( src/core/lib/gprpp/thd_windows.cc )
   s.files += %w( src/core/lib/profiling/basic_timers.cc )
@@ -201,6 +203,7 @@ Gem::Specification.new do |s|
   s.files += %w( src/core/ext/filters/http/client/http_client_filter.h )
   s.files += %w( src/core/ext/filters/http/message_compress/message_compress_filter.h )
   s.files += %w( src/core/ext/filters/http/server/http_server_filter.h )
+  s.files += %w( src/core/ext/filters/client_channel/lb_policy/grpclb/grpclb.h )
   s.files += %w( src/core/lib/security/context/security_context.h )
   s.files += %w( src/core/lib/security/credentials/alts/alts_credentials.h )
   s.files += %w( src/core/lib/security/credentials/composite/composite_credentials.h )
@@ -252,7 +255,6 @@ Gem::Specification.new do |s|
   s.files += %w( third_party/nanopb/pb_decode.h )
   s.files += %w( third_party/nanopb/pb_encode.h )
   s.files += %w( src/core/tsi/transport_security.h )
-  s.files += %w( src/core/tsi/transport_security_adapter.h )
   s.files += %w( src/core/tsi/transport_security_interface.h )
   s.files += %w( src/core/ext/transport/chttp2/client/authority.h )
   s.files += %w( src/core/ext/transport/chttp2/client/chttp2_connector.h )
@@ -292,7 +294,7 @@ Gem::Specification.new do |s|
   s.files += %w( src/core/lib/channel/channel_stack.h )
   s.files += %w( src/core/lib/channel/channel_stack_builder.h )
   s.files += %w( src/core/lib/channel/channel_trace.h )
-  s.files += %w( src/core/lib/channel/channel_trace_registry.h )
+  s.files += %w( src/core/lib/channel/channelz_registry.h )
   s.files += %w( src/core/lib/channel/connected_channel.h )
   s.files += %w( src/core/lib/channel/context.h )
   s.files += %w( src/core/lib/channel/handshaker.h )
@@ -442,7 +444,7 @@ Gem::Specification.new do |s|
   s.files += %w( src/core/lib/channel/channel_stack.cc )
   s.files += %w( src/core/lib/channel/channel_stack_builder.cc )
   s.files += %w( src/core/lib/channel/channel_trace.cc )
-  s.files += %w( src/core/lib/channel/channel_trace_registry.cc )
+  s.files += %w( src/core/lib/channel/channelz_registry.cc )
   s.files += %w( src/core/lib/channel/connected_channel.cc )
   s.files += %w( src/core/lib/channel/handshaker.cc )
   s.files += %w( src/core/lib/channel/handshaker_factory.cc )
@@ -674,7 +676,6 @@ Gem::Specification.new do |s|
   s.files += %w( third_party/nanopb/pb_decode.c )
   s.files += %w( third_party/nanopb/pb_encode.c )
   s.files += %w( src/core/tsi/transport_security.cc )
-  s.files += %w( src/core/tsi/transport_security_adapter.cc )
   s.files += %w( src/core/ext/transport/chttp2/client/insecure/channel_create.cc )
   s.files += %w( src/core/ext/transport/chttp2/client/insecure/channel_create_posix.cc )
   s.files += %w( src/core/ext/transport/chttp2/client/authority.cc )
@@ -789,18 +790,18 @@ Gem::Specification.new do |s|
   s.files += %w( third_party/boringssl/crypto/fipsmodule/ec/internal.h )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/ec/oct.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/ec/p224-64.c )
-  s.files += %w( third_party/boringssl/crypto/fipsmodule/ec/p256-64.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/ec/p256-x86_64-table.h )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/ec/p256-x86_64.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/ec/p256-x86_64.h )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/ec/simple.c )
-  s.files += %w( third_party/boringssl/crypto/fipsmodule/ec/util-64.c )
+  s.files += %w( third_party/boringssl/crypto/fipsmodule/ec/util.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/ec/wnaf.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/ecdsa/ecdsa.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/hmac/hmac.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/md4/md4.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/md5/md5.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/modes/cbc.c )
+  s.files += %w( third_party/boringssl/crypto/fipsmodule/modes/ccm.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/modes/cfb.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/modes/ctr.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/modes/gcm.c )
@@ -816,10 +817,13 @@ Gem::Specification.new do |s|
   s.files += %w( third_party/boringssl/crypto/fipsmodule/rsa/padding.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/rsa/rsa.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/rsa/rsa_impl.c )
+  s.files += %w( third_party/boringssl/crypto/fipsmodule/self_check/self_check.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/sha/sha1-altivec.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/sha/sha1.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/sha/sha256.c )
   s.files += %w( third_party/boringssl/crypto/fipsmodule/sha/sha512.c )
+  s.files += %w( third_party/boringssl/crypto/fipsmodule/tls/internal.h )
+  s.files += %w( third_party/boringssl/crypto/fipsmodule/tls/kdf.c )
   s.files += %w( third_party/boringssl/crypto/internal.h )
   s.files += %w( third_party/boringssl/crypto/obj/obj_dat.h )
   s.files += %w( third_party/boringssl/crypto/pkcs7/internal.h )
@@ -905,7 +909,9 @@ Gem::Specification.new do |s|
   s.files += %w( third_party/boringssl/include/openssl/x509_vfy.h )
   s.files += %w( third_party/boringssl/include/openssl/x509v3.h )
   s.files += %w( third_party/boringssl/ssl/internal.h )
+  s.files += %w( third_party/boringssl/third_party/fiat/curve25519_tables.h )
   s.files += %w( third_party/boringssl/third_party/fiat/internal.h )
+  s.files += %w( third_party/boringssl/third_party/fiat/p256.c )
   s.files += %w( src/boringssl/err_data.c )
   s.files += %w( third_party/boringssl/crypto/asn1/a_bitstr.c )
   s.files += %w( third_party/boringssl/crypto/asn1/a_bool.c )
@@ -958,6 +964,7 @@ Gem::Specification.new do |s|
   s.files += %w( third_party/boringssl/crypto/chacha/chacha.c )
   s.files += %w( third_party/boringssl/crypto/cipher_extra/cipher_extra.c )
   s.files += %w( third_party/boringssl/crypto/cipher_extra/derive_key.c )
+  s.files += %w( third_party/boringssl/crypto/cipher_extra/e_aesccm.c )
   s.files += %w( third_party/boringssl/crypto/cipher_extra/e_aesctrhmac.c )
   s.files += %w( third_party/boringssl/crypto/cipher_extra/e_aesgcmsiv.c )
   s.files += %w( third_party/boringssl/crypto/cipher_extra/e_chacha20poly1305.c )
@@ -969,6 +976,7 @@ Gem::Specification.new do |s|
   s.files += %w( third_party/boringssl/crypto/cipher_extra/tls_cbc.c )
   s.files += %w( third_party/boringssl/crypto/cmac/cmac.c )
   s.files += %w( third_party/boringssl/crypto/conf/conf.c )
+  s.files += %w( third_party/boringssl/crypto/cpu-aarch64-fuchsia.c )
   s.files += %w( third_party/boringssl/crypto/cpu-aarch64-linux.c )
   s.files += %w( third_party/boringssl/crypto/cpu-arm-linux.c )
   s.files += %w( third_party/boringssl/crypto/cpu-arm.c )
@@ -976,7 +984,6 @@ Gem::Specification.new do |s|
   s.files += %w( third_party/boringssl/crypto/cpu-ppc64le.c )
   s.files += %w( third_party/boringssl/crypto/crypto.c )
   s.files += %w( third_party/boringssl/crypto/curve25519/spake25519.c )
-  s.files += %w( third_party/boringssl/crypto/curve25519/x25519-x86_64.c )
   s.files += %w( third_party/boringssl/crypto/dh/check.c )
   s.files += %w( third_party/boringssl/crypto/dh/dh.c )
   s.files += %w( third_party/boringssl/crypto/dh/dh_asn1.c )
@@ -1132,6 +1139,7 @@ Gem::Specification.new do |s|
   s.files += %w( third_party/boringssl/ssl/d1_srtp.cc )
   s.files += %w( third_party/boringssl/ssl/dtls_method.cc )
   s.files += %w( third_party/boringssl/ssl/dtls_record.cc )
+  s.files += %w( third_party/boringssl/ssl/handoff.cc )
   s.files += %w( third_party/boringssl/ssl/handshake.cc )
   s.files += %w( third_party/boringssl/ssl/handshake_client.cc )
   s.files += %w( third_party/boringssl/ssl/handshake_server.cc )
