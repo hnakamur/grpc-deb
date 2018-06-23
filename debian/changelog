@@ -1,3 +1,9 @@
+grpc (1.12.0-1) experimental; urgency=medium
+
+  * New upstream release.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 27 May 2018 14:06:16 +0000
+
 grpc (1.11.0-1) experimental; urgency=medium
 
   [ Pirate Praveen <praveen@debian.org> ]
