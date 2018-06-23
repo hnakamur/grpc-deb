@@ -1,4 +1,4 @@
-grpc (1.13.0~pre2-1) UNRELEASED; urgency=medium
+grpc (1.13.0~pre2-1) experimental; urgency=medium
 
   * New major upstream pre-release version.
   * Conflict libgrpc-dev with libgpr1-dev due to library name collision
