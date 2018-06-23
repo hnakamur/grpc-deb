@@ -14,6 +14,7 @@ Section: libdevel
 Architecture: any
 Multi-Arch: same
 Depends: libgrpc6 (= ${binary:Version}), ${misc:Depends}
+Conflicts: libgpr1-dev
 Description: high performance general RPC framework (development)
  A modern, open source remote procedure call (RPC) framework that can
  run anywhere. It enables client and server applications to communicate
