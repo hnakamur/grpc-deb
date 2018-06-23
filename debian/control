@@ -7,6 +7,7 @@ Build-Depends: debhelper (>= 11~), zlib1g-dev, libssl-dev, libprotobuf-dev, prot
 Standards-Version: 4.1.4
 Section: libs
 Homepage: http://www.grpc.io/
+Testsuite: autopkgtest-pkg-ruby
 XS-Ruby-Versions: all
 Vcs-Git: https://github.com/grpc/grpc.git
 Vcs-Browser: https://github.com/grpc/grpc

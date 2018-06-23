@@ -4,6 +4,7 @@ grpc (1.13.0~pre2-1) UNRELEASED; urgency=medium
   * Conflict libgrpc-dev with libgpr1-dev due to library name collision
     (closes: #901218).
   * Add ruby-grpc{,-tools} packages.
+  * Add Ruby testing.
 
  -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 17 Jun 2018 11:36:43 +0000
 
