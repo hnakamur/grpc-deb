@@ -16,8 +16,13 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 # package maintainers to append LDFLAGS
 #export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
+export GEM2DEB_TEST_RUNNER = --check-dependencies
+export DH_RUBY = --gem-install
+export DH_RUBY_GEM_INSTALL_WHITELIST_APPEND = platform_check.rb version.rb
+
 override_dh_auto_build:
 	$(MAKE) shared prefix=/usr
+	dh_auto_build -O--buildsystem=ruby
 
 override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
@@ -27,6 +32,12 @@ endif
 override_dh_auto_install:
 	$(MAKE) INSTALL_LIBDIR=/lib/$(DEB_HOST_MULTIARCH) \
 		install prefix=$(CURDIR)/debian/tmp/usr
+	TOPDIR=$(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH) \
+	LD_LIBRARY_PATH=$(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH) \
+		dh_auto_install -O--buildsystem=ruby
+	find $(CURDIR)/debian/ruby-grpc/ \
+		\( -name ca.pem -o -name server1.key -o -name server1.pem \) \
+		-exec chmod a-x {} \;
 
 %:
 	dh $@ --list-missing

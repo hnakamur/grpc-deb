@@ -2,10 +2,12 @@ Source: grpc
 Priority: optional
 Maintainer: Laszlo Boszormenyi (GCS) <gcs@debian.org>
 Uploaders: Andrew Pollock <apollock@debian.org>
-Build-Depends: debhelper (>= 11~), zlib1g-dev, libssl-dev, libprotobuf-dev, protobuf-compiler (>= 3.5.2~), libgflags-dev, libgtest-dev, libgoogle-perftools-dev, python, libprotoc-dev (>= 3.5.2~), libc-ares-dev
+Build-Depends: debhelper (>= 11~), zlib1g-dev, libssl-dev, libprotobuf-dev, protobuf-compiler (>= 3.5.2~), libgflags-dev, libgtest-dev, libgoogle-perftools-dev, python, libprotoc-dev (>= 3.5.2~), libc-ares-dev,
+ gem2deb, ruby-google-protobuf (>= 3.5.2~), ruby-googleauth (>= 0.5.1~), ruby-googleapis-common-protos-types, ruby-rspec, ruby-simplecov
 Standards-Version: 4.1.4
 Section: libs
 Homepage: http://www.grpc.io/
+XS-Ruby-Versions: all
 Vcs-Git: https://github.com/grpc/grpc.git
 Vcs-Browser: https://github.com/grpc/grpc
 
@@ -66,3 +68,39 @@ Description: high performance general RPC framework - protobuf plugin
  .
  This package provides the plugins needed for compiling gRPC service
  definitions with the protobuf compiler.
+
+Package: ruby-grpc
+Architecture: any
+X-DhRuby-Root: .
+XB-Ruby-Versions: ${ruby:Versions}
+Depends: ruby | ruby-interpreter,
+         ruby-google-protobuf (>= 3.5.2~),
+         ruby-googleauth (>= 0.5.1~),
+         ruby-googleapis-common-protos-types,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Conflicts: ruby-grpc (<< 1.13.0~pre2~)
+Replaces: ruby-grpc (<< 1.13.0~pre2~)
+Description: GRPC system in Ruby
+ Send RPCs from Ruby using GRPC. GRPC is a high performance, open-source
+ universal RPC framework.
+ .
+ Some features of gRPC:
+  * Simple service definition
+  * Works across languages and platforms
+  * Start quickly and scale
+  * Bi-directional streaming and integrated auth
+
+Package: ruby-grpc-tools
+Architecture: all
+X-DhRuby-Root: src/ruby/tools
+XB-Ruby-Versions: ${ruby:Versions}
+Depends: ruby | ruby-interpreter,
+         ruby-grpc,
+         protobuf-compiler-grpc,
+         ${misc:Depends}
+Conflicts: ruby-grpc-tools (<< 1.13.0~pre2~)
+Replaces: ruby-grpc-tools (<< 1.13.0~pre2~)
+Description: Development tools for Ruby gRPC
+ Ruby gRPC library allows sending RPCs from Ruby using GRPC.
+ GRPC is a high performance, open-source universal RPC framework.
