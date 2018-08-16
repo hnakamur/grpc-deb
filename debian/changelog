@@ -1,3 +1,9 @@
+grpc (1.13.0-1) UNRELEASED; urgency=medium
+
+  * New major upstream release.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 01 Jul 2018 22:44:30 +0000
+
 grpc (1.13.0~pre3-1) experimental; urgency=medium
 
   * New major upstream pre-release version.
