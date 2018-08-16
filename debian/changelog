@@ -1,8 +1,9 @@
-grpc (1.14.1-1) UNRELEASED; urgency=medium
+grpc (1.14.1-1) experimental; urgency=medium
 
   * New upstream release.
   * Update patches.
   * Build with recent protobuf release.
+  * Update Standards-Version to 4.1.5 .
 
  -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Wed, 15 Aug 2018 15:30:08 +0000
 
