@@ -22,7 +22,13 @@ export DH_RUBY_GEM_INSTALL_WHITELIST_APPEND = platform_check.rb version.rb
 
 export V = 1
 
+LD_LIBRARY_PATH += :$(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)
+
 override_dh_auto_build:
+	echo $(LD_LIBRARY_PATH)
+	# Fake included protobuf .proto files
+	mkdir -p $(CURDIR)/Ithird_party/protobuf/
+	ln -s /usr/include $(CURDIR)/third_party/protobuf/src
 	$(MAKE) shared prefix=/usr
 	dh_auto_build -O--buildsystem=ruby
 
@@ -35,7 +41,6 @@ override_dh_auto_install:
 	$(MAKE) INSTALL_LIBDIR=/lib/$(DEB_HOST_MULTIARCH) \
 		install prefix=$(CURDIR)/debian/tmp/usr
 	TOPDIR=$(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH) \
-	LD_LIBRARY_PATH=$(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH) \
 		dh_auto_install -O--buildsystem=ruby
 	find $(CURDIR)/debian/ruby-grpc/ \
 		\( -name ca.pem -o -name server1.key -o -name server1.pem \) \

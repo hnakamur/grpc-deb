@@ -1,6 +1,8 @@
 grpc (1.13.0~pre3-1) UNRELEASED; urgency=medium
 
   * New major upstream pre-release version.
+  * Append installed library directory to LD_LIBRARY_PATH for linking Ruby
+    bindings.
 
  -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Wed, 27 Jun 2018 17:48:53 +0000
 
