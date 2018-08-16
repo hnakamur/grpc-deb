@@ -12,7 +12,7 @@
    s.files += %w( include/grpc/support/alloc.h )
    s.files += %w( include/grpc/support/atm.h )
    s.files += %w( include/grpc/support/atm_gcc_atomic.h )
-@@ -250,10 +245,6 @@ Gem::Specification.new do |s|
+@@ -255,10 +250,6 @@ Gem::Specification.new do |s|
    s.files += %w( src/core/tsi/alts/handshaker/altscontext.pb.h )
    s.files += %w( src/core/tsi/alts/handshaker/handshaker.pb.h )
    s.files += %w( src/core/tsi/alts/handshaker/transport_security_common.pb.h )
@@ -23,7 +23,7 @@
    s.files += %w( src/core/tsi/transport_security.h )
    s.files += %w( src/core/tsi/transport_security_interface.h )
    s.files += %w( src/core/ext/transport/chttp2/client/authority.h )
-@@ -672,9 +663,6 @@ Gem::Specification.new do |s|
+@@ -683,9 +674,6 @@ Gem::Specification.new do |s|
    s.files += %w( src/core/tsi/alts/handshaker/altscontext.pb.c )
    s.files += %w( src/core/tsi/alts/handshaker/handshaker.pb.c )
    s.files += %w( src/core/tsi/alts/handshaker/transport_security_common.pb.c )
@@ -33,7 +33,7 @@
    s.files += %w( src/core/tsi/transport_security.cc )
    s.files += %w( src/core/ext/transport/chttp2/client/insecure/channel_create.cc )
    s.files += %w( src/core/ext/transport/chttp2/client/insecure/channel_create_posix.cc )
-@@ -739,535 +727,5 @@ Gem::Specification.new do |s|
+@@ -753,535 +741,5 @@ Gem::Specification.new do |s|
    s.files += %w( src/core/ext/filters/workarounds/workaround_cronet_compression_filter.cc )
    s.files += %w( src/core/ext/filters/workarounds/workaround_utils.cc )
    s.files += %w( src/core/plugin_registry/grpc_plugin_registry.cc )

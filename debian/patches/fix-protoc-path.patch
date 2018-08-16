@@ -10,18 +10,18 @@
  
  protoc_path = File.join(protoc_dir, protoc_name)
  
---- a/src/ruby/spec/pb/package_with_underscore/checker_spec.rb
-+++ b/src/ruby/spec/pb/package_with_underscore/checker_spec.rb
-@@ -22,10 +22,10 @@
+--- a/src/ruby/end2end/package_with_underscore_checker.rb
++++ b/src/ruby/end2end/package_with_underscore_checker.rb
+@@ -21,10 +21,10 @@ def main
  
-     fail 'CONFIG env variable unexpectedly unset' unless ENV['CONFIG']
-     bins_sub_dir = ENV['CONFIG']
--    bins_dir = File.join(root_dir, 'bins', bins_sub_dir)
-+    bins_dir = '/usr/bin'
+   fail 'CONFIG env variable unexpectedly unset' unless ENV['CONFIG']
+   bins_sub_dir = ENV['CONFIG']
+-  bins_dir = File.join(root_dir, 'bins', bins_sub_dir)
++  bins_dir = '/usr/bin'
  
-     plugin = File.join(bins_dir, 'grpc_ruby_plugin')
--    protoc = File.join(bins_dir, 'protobuf', 'protoc')
-+    protoc = File.join(bins_dir, 'protoc')
+   plugin = File.join(bins_dir, 'grpc_ruby_plugin')
+-  protoc = File.join(bins_dir, 'protobuf', 'protoc')
++  protoc = File.join(bins_dir, 'protoc')
  
-     got = nil
+   got = nil
  
