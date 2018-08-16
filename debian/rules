@@ -20,6 +20,8 @@ export GEM2DEB_TEST_RUNNER = --check-dependencies
 export DH_RUBY = --gem-install
 export DH_RUBY_GEM_INSTALL_WHITELIST_APPEND = platform_check.rb version.rb
 
+export DH_RUBY_IGNORE_TESTS = all
+
 export V = 1
 
 LD_LIBRARY_PATH += :$(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)
