@@ -1,6 +1,7 @@
-grpc (1.13.0-1) UNRELEASED; urgency=medium
+grpc (1.13.0-1) experimental; urgency=medium
 
   * New major upstream release.
+  * Put ruby-grpc{,-tools} packages into section ruby.
 
  -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 01 Jul 2018 22:44:30 +0000
 

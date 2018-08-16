@@ -71,6 +71,7 @@ Description: high performance general RPC framework - protobuf plugin
  definitions with the protobuf compiler.
 
 Package: ruby-grpc
+Section: ruby
 Architecture: any
 X-DhRuby-Root: .
 XB-Ruby-Versions: ${ruby:Versions}
@@ -93,6 +94,7 @@ Description: GRPC system in Ruby
   * Bi-directional streaming and integrated auth
 
 Package: ruby-grpc-tools
+Section: ruby
 Architecture: all
 X-DhRuby-Root: src/ruby/tools
 XB-Ruby-Versions: ${ruby:Versions}
