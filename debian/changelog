@@ -1,7 +1,8 @@
-grpc (1.15.0-1) UNRELEASED; urgency=medium
+grpc (1.15.0-1) experimental; urgency=medium
 
   * New upstream release.
   * Update patches.
+  * Update Standards-Version to 4.2.1 .
 
  -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sat, 15 Sep 2018 15:33:29 +0000
 
