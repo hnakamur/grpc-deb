@@ -64,11 +64,11 @@ config_setting(
 )
 
 # This should be updated along with build.yaml
-g_stands_for = "gladiolus"
+g_stands_for = "glider"
 
 core_version = "6.0.0"
 
-version = "1.14.1"
+version = "1.15.0"
 
 GPR_PUBLIC_HDRS = [
     "include/grpc/support/alloc.h",
@@ -485,7 +485,7 @@ grpc_cc_library(
 grpc_cc_library(
     name = "census",
     srcs = [
-        "src/cpp/ext/filters/census/grpc_context.cc",
+        "src/core/ext/filters/census/grpc_context.cc",
     ],
     language = "c++",
     public_hdrs = [
@@ -560,6 +560,7 @@ grpc_cc_library(
         "src/core/lib/gprpp/fork.h",
         "src/core/lib/gprpp/manual_constructor.h",
         "src/core/lib/gprpp/memory.h",
+        "src/core/lib/gprpp/mutex_lock.h",
         "src/core/lib/gprpp/thd.h",
         "src/core/lib/profiling/timers.h",
     ],
@@ -1010,6 +1011,7 @@ grpc_cc_library(
         "src/core/lib/iomgr/cfstream_handle.cc",
         "src/core/lib/iomgr/endpoint_cfstream.cc",
         "src/core/lib/iomgr/error_cfstream.cc",
+        "src/core/lib/iomgr/iomgr_posix_cfstream.cc",
         "src/core/lib/iomgr/tcp_client_cfstream.cc",
     ],
     hdrs = [
@@ -1433,8 +1435,11 @@ grpc_cc_library(
         "src/core/ext/filters/client_channel/resolver/dns/c_ares/dns_resolver_ares.cc",
         "src/core/ext/filters/client_channel/resolver/dns/c_ares/grpc_ares_ev_driver.cc",
         "src/core/ext/filters/client_channel/resolver/dns/c_ares/grpc_ares_ev_driver_posix.cc",
+        "src/core/ext/filters/client_channel/resolver/dns/c_ares/grpc_ares_ev_driver_windows.cc",
         "src/core/ext/filters/client_channel/resolver/dns/c_ares/grpc_ares_wrapper.cc",
         "src/core/ext/filters/client_channel/resolver/dns/c_ares/grpc_ares_wrapper_fallback.cc",
+        "src/core/ext/filters/client_channel/resolver/dns/c_ares/grpc_ares_wrapper_posix.cc",
+        "src/core/ext/filters/client_channel/resolver/dns/c_ares/grpc_ares_wrapper_windows.cc",
     ],
     hdrs = [
         "src/core/ext/filters/client_channel/resolver/dns/c_ares/grpc_ares_ev_driver.h",
@@ -1496,6 +1501,8 @@ grpc_cc_library(
         "src/core/lib/security/credentials/plugin/plugin_credentials.cc",
         "src/core/lib/security/credentials/ssl/ssl_credentials.cc",
         "src/core/lib/security/security_connector/alts_security_connector.cc",
+        "src/core/lib/security/security_connector/load_system_roots_fallback.cc",
+        "src/core/lib/security/security_connector/load_system_roots_linux.cc",
         "src/core/lib/security/security_connector/local_security_connector.cc",
         "src/core/lib/security/security_connector/security_connector.cc",
         "src/core/lib/security/transport/client_auth_filter.cc",
@@ -1524,6 +1531,8 @@ grpc_cc_library(
         "src/core/lib/security/credentials/plugin/plugin_credentials.h",
         "src/core/lib/security/credentials/ssl/ssl_credentials.h",
         "src/core/lib/security/security_connector/alts_security_connector.h",
+        "src/core/lib/security/security_connector/load_system_roots.h",
+        "src/core/lib/security/security_connector/load_system_roots_linux.h",
         "src/core/lib/security/security_connector/local_security_connector.h",
         "src/core/lib/security/security_connector/security_connector.h",
         "src/core/lib/security/transport/auth_filters.h",
@@ -1540,6 +1549,7 @@ grpc_cc_library(
         "grpc_base",
         "grpc_transport_chttp2_alpn",
         "tsi",
+        "grpc_shadow_boringssl",
     ],
 )
 
@@ -1800,6 +1810,7 @@ grpc_cc_library(
         "gpr",
         "grpc_base",
         "tsi_interface",
+        "grpc_shadow_boringssl",
     ],
 )
 
@@ -1877,8 +1888,8 @@ grpc_cc_library(
         "src/core/tsi/alts/handshaker/alts_tsi_handshaker_private.h",
         "src/core/tsi/alts/handshaker/alts_tsi_utils.h",
         "src/core/tsi/alts_transport_security.h",
-        "src/core/tsi/local_transport_security.h",
         "src/core/tsi/fake_transport_security.h",
+        "src/core/tsi/local_transport_security.h",
         "src/core/tsi/ssl/session_cache/ssl_session.h",
         "src/core/tsi/ssl/session_cache/ssl_session_cache.h",
         "src/core/tsi/ssl_transport_security.h",
@@ -1896,6 +1907,7 @@ grpc_cc_library(
         "grpc_base",
         "grpc_transport_chttp2_client_insecure",
         "tsi_interface",
+        "grpc_shadow_boringssl",
     ],
 )
 
@@ -2054,6 +2066,26 @@ grpc_cc_library(
 )
 
 grpc_cc_library(
+    name = "grpcpp_channelz",
+    srcs = [
+        "src/cpp/server/channelz/channelz_service.cc",
+        "src/cpp/server/channelz/channelz_service_plugin.cc",
+    ],
+    hdrs = [
+        "src/cpp/server/channelz/channelz_service.h",
+    ],
+    language = "c++",
+    public_hdrs = [
+        "include/grpcpp/ext/channelz_service_plugin.h",
+    ],
+    deps = [
+        ":grpc++",
+        "//src/proto/grpc/channelz:channelz_proto",
+    ],
+    alwayslink = 1,
+)
+
+grpc_cc_library(
     name = "grpc++_test",
     public_hdrs = [
         "include/grpc++/test/mock_stream.h",
@@ -2101,7 +2133,7 @@ grpc_cc_library(
         "src/cpp/ext/filters/census/channel_filter.cc",
         "src/cpp/ext/filters/census/client_filter.cc",
         "src/cpp/ext/filters/census/context.cc",
-        "src/cpp/ext/filters/census/grpc_context.cc",
+        "src/core/ext/filters/census/grpc_context.cc",
         "src/cpp/ext/filters/census/grpc_plugin.cc",
         "src/cpp/ext/filters/census/measures.cc",
         "src/cpp/ext/filters/census/rpc_encoding.cc",
@@ -2128,6 +2160,13 @@ grpc_cc_library(
     deps = [
         ":census",
         ":grpc++",
+    ],
+)
+
+grpc_cc_library(
+    name = "grpc_shadow_boringssl",
+    hdrs = [
+        "src/core/tsi/grpc_shadow_boringssl.h",
     ],
 )
 
