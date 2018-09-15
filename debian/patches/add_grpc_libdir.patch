@@ -8,7 +8,7 @@ Last-Update: 2018-06-21
 
 --- grpc-1.13.0~pre2.orig/src/ruby/ext/grpc/extconf.rb
 +++ grpc-1.13.0~pre2/src/ruby/ext/grpc/extconf.rb
-@@ -66,6 +66,8 @@ ENV['CPPFLAGS'] = '-DGPR_BACKWARDS_COMPA
+@@ -41,6 +41,8 @@ ENV['CPPFLAGS'] = '-DGPR_BACKWARDS_COMPA
  output_dir = File.expand_path(RbConfig::CONFIG['topdir'])
  grpc_lib_dir = File.join(output_dir, 'libs', grpc_config)
  ENV['BUILDDIR'] = output_dir

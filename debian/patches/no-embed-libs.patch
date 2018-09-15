@@ -1,6 +1,6 @@
 --- a/src/ruby/ext/grpc/extconf.rb
 +++ b/src/ruby/ext/grpc/extconf.rb
-@@ -56,9 +56,9 @@
+@@ -31,9 +31,9 @@
  
  ENV['AR'] = 'libtool -o' if RUBY_PLATFORM =~ /darwin/
  

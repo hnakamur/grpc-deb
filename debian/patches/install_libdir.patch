@@ -1,6 +1,6 @@
 --- a/Makefile	2018-05-04 17:12:19.000000000 +0000
 +++ b/Makefile	2018-05-04 19:59:00.702313203 +0000
-@@ -2915,85 +2915,85 @@ install-static: install-static_c install
+@@ -2953,88 +2953,88 @@ install-static: install-static_c install
  
  install-static_c: static_c strip-static_c install-pkg-config_c
  	$(E) "[INSTALL] Installing libaddress_sorting.a"
@@ -55,6 +55,11 @@
 -	$(Q) $(INSTALL) $(LIBDIR)/$(CONFIG)/libgrpc++_unsecure.a $(prefix)/lib/libgrpc++_unsecure.a
 +	$(Q) $(INSTALL) -d $(prefix)/$(INSTALL_LIBDIR)
 +	$(Q) $(INSTALL) $(LIBDIR)/$(CONFIG)/libgrpc++_unsecure.a $(prefix)/$(INSTALL_LIBDIR)/libgrpc++_unsecure.a
+ 	$(E) "[INSTALL] Installing libgrpcpp_channelz.a"
+-	$(Q) $(INSTALL) -d $(prefix)/lib
+-	$(Q) $(INSTALL) $(LIBDIR)/$(CONFIG)/libgrpcpp_channelz.a $(prefix)/lib/libgrpcpp_channelz.a
++	$(Q) $(INSTALL) -d $(prefix)/$(INSTALL_LIBDIR)
++	$(Q) $(INSTALL) $(LIBDIR)/$(CONFIG)/libgrpcpp_channelz.a $(prefix)/$(INSTALL_LIBDIR)/libgrpcpp_channelz.a
  
  
  
@@ -131,7 +136,7 @@
  endif
  ifneq ($(SYSTEM),MINGW32)
  ifneq ($(SYSTEM),Darwin)
-@@ -3004,49 +3004,49 @@ endif
+@@ -3045,58 +3045,58 @@ endif
  
  install-shared_cxx: shared_cxx strip-shared_cxx install-shared_c install-pkg-config_cxx
  	$(E) "[INSTALL] Installing $(SHARED_PREFIX)grpc++$(SHARED_VERSION_CPP).$(SHARED_EXT_CPP)"
@@ -204,9 +209,23 @@
 +	$(Q) ln -sf $(SHARED_PREFIX)grpc++_unsecure$(SHARED_VERSION_CPP).$(SHARED_EXT_CPP) $(prefix)/$(INSTALL_LIBDIR)/libgrpc++_unsecure.so.1
 +	$(Q) ln -sf $(SHARED_PREFIX)grpc++_unsecure$(SHARED_VERSION_CPP).$(SHARED_EXT_CPP) $(prefix)/$(INSTALL_LIBDIR)/libgrpc++_unsecure.so
  endif
+ 	$(E) "[INSTALL] Installing $(SHARED_PREFIX)grpcpp_channelz$(SHARED_VERSION_CPP).$(SHARED_EXT_CPP)"
+-	$(Q) $(INSTALL) -d $(prefix)/lib
+-	$(Q) $(INSTALL) $(LIBDIR)/$(CONFIG)/$(SHARED_PREFIX)grpcpp_channelz$(SHARED_VERSION_CPP).$(SHARED_EXT_CPP) $(prefix)/lib/$(SHARED_PREFIX)grpcpp_channelz$(SHARED_VERSION_CPP).$(SHARED_EXT_CPP)
++	$(Q) $(INSTALL) -d $(prefix)/$(INSTALL_LIBDIR)
++	$(Q) $(INSTALL) $(LIBDIR)/$(CONFIG)/$(SHARED_PREFIX)grpcpp_channelz$(SHARED_VERSION_CPP).$(SHARED_EXT_CPP) $(prefix)/$(INSTALL_LIBDIR)/$(SHARED_PREFIX)grpcpp_channelz$(SHARED_VERSION_CPP).$(SHARED_EXT_CPP)
+ ifeq ($(SYSTEM),MINGW32)
+-	$(Q) $(INSTALL) $(LIBDIR)/$(CONFIG)/libgrpcpp_channelz$(SHARED_VERSION_CPP)-dll.a $(prefix)/lib/libgrpcpp_channelz.a
++	$(Q) $(INSTALL) $(LIBDIR)/$(CONFIG)/libgrpcpp_channelz$(SHARED_VERSION_CPP)-dll.a $(prefix)/$(INSTALL_LIBDIR)/libgrpcpp_channelz.a
+ else ifneq ($(SYSTEM),Darwin)
+-	$(Q) ln -sf $(SHARED_PREFIX)grpcpp_channelz$(SHARED_VERSION_CPP).$(SHARED_EXT_CPP) $(prefix)/lib/libgrpcpp_channelz.so.6
+-	$(Q) ln -sf $(SHARED_PREFIX)grpcpp_channelz$(SHARED_VERSION_CPP).$(SHARED_EXT_CPP) $(prefix)/lib/libgrpcpp_channelz.so
++	$(Q) ln -sf $(SHARED_PREFIX)grpcpp_channelz$(SHARED_VERSION_CPP).$(SHARED_EXT_CPP) $(prefix)/$(INSTALL_LIBDIR)/libgrpcpp_channelz.so.6
++	$(Q) ln -sf $(SHARED_PREFIX)grpcpp_channelz$(SHARED_VERSION_CPP).$(SHARED_EXT_CPP) $(prefix)/$(INSTALL_LIBDIR)/libgrpcpp_channelz.so
+ endif
  ifneq ($(SYSTEM),MINGW32)
  ifneq ($(SYSTEM),Darwin)
-@@ -3057,13 +3057,13 @@ endif
+@@ -3107,13 +3107,13 @@ endif
  
  install-shared_csharp: shared_csharp strip-shared_csharp
  	$(E) "[INSTALL] Installing $(SHARED_PREFIX)grpc_csharp_ext$(SHARED_VERSION_CSHARP).$(SHARED_EXT_CSHARP)"
@@ -225,14 +244,16 @@
  endif
  ifneq ($(SYSTEM),MINGW32)
  ifneq ($(SYSTEM),Darwin)
-@@ -3096,15 +3096,15 @@ install-grpc-cli: grpc_cli
+@@ -3146,16 +3146,16 @@ install-grpc-cli: grpc_cli
  
  install-pkg-config_c: pc_c pc_c_unsecure
  	$(E) "[INSTALL] Installing C pkg-config files"
 -	$(Q) $(INSTALL) -d $(prefix)/lib/pkgconfig
+-	$(Q) $(INSTALL) -m 0644 $(LIBDIR)/$(CONFIG)/pkgconfig/gpr.pc $(prefix)/lib/pkgconfig/gpr.pc
 -	$(Q) $(INSTALL) -m 0644 $(LIBDIR)/$(CONFIG)/pkgconfig/grpc.pc $(prefix)/lib/pkgconfig/grpc.pc
 -	$(Q) $(INSTALL) -m 0644 $(LIBDIR)/$(CONFIG)/pkgconfig/grpc_unsecure.pc $(prefix)/lib/pkgconfig/grpc_unsecure.pc
 +	$(Q) $(INSTALL) -d $(prefix)/$(INSTALL_LIBDIR)/pkgconfig
++	$(Q) $(INSTALL) -m 0644 $(LIBDIR)/$(CONFIG)/pkgconfig/gpr.pc $(prefix)/$(INSTALL_LIBDIR)/pkgconfig/gpr.pc
 +	$(Q) $(INSTALL) -m 0644 $(LIBDIR)/$(CONFIG)/pkgconfig/grpc.pc $(prefix)/$(INSTALL_LIBDIR)/pkgconfig/grpc.pc
 +	$(Q) $(INSTALL) -m 0644 $(LIBDIR)/$(CONFIG)/pkgconfig/grpc_unsecure.pc $(prefix)/$(INSTALL_LIBDIR)/pkgconfig/grpc_unsecure.pc
  
