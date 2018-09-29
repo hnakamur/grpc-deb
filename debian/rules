@@ -27,7 +27,6 @@ export V = 1
 LD_LIBRARY_PATH += :$(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)
 
 override_dh_auto_build:
-	echo $(LD_LIBRARY_PATH)
 	# Fake included protobuf .proto files
 	mkdir -p $(CURDIR)/Ithird_party/protobuf/
 	ln -s /usr/include $(CURDIR)/third_party/protobuf/src
