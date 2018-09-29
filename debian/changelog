@@ -2,6 +2,7 @@ grpc (1.15.1-1) UNRELEASED; urgency=medium
 
   * New upstream release.
   * Install gRPC platform support library pkg-config file.
+  * Fix libgrpcpp_channelz soname symlink.
 
  -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Fri, 28 Sep 2018 15:40:03 +0000
 
