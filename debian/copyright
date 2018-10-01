@@ -1,4 +1,4 @@
-Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: grpc
 Source: https://github.com/grpc/grpc/archive/v1.3.2.tar.gz
 
