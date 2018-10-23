@@ -473,7 +473,21 @@ std::shared_ptr<Channel> Server::InProcessChannel(
     const ChannelArguments& args) {
   grpc_channel_args channel_args = args.c_channel_args();
   return CreateChannelInternal(
-      "inproc", grpc_inproc_channel_create(server_, &channel_args, nullptr));
+      "inproc", grpc_inproc_channel_create(server_, &channel_args, nullptr),
+      nullptr);
+}
+
+std::shared_ptr<Channel>
+Server::experimental_type::InProcessChannelWithInterceptors(
+    const ChannelArguments& args,
+    std::unique_ptr<std::vector<
+        std::unique_ptr<experimental::ClientInterceptorFactoryInterface>>>
+        interceptor_creators) {
+  grpc_channel_args channel_args = args.c_channel_args();
+  return CreateChannelInternal(
+      "inproc",
+      grpc_inproc_channel_create(server_->server_, &channel_args, nullptr),
+      std::move(interceptor_creators));
 }
 
 static grpc_server_register_method_payload_handling PayloadHandlingForMethod(
@@ -657,6 +671,7 @@ void Server::PerformOpsOnCall(internal::CallOpSetInterface* ops,
   size_t nops = 0;
   grpc_op cops[MAX_OPS];
   ops->FillOps(call->call(), cops, &nops);
+  // TODO(vjpai): Use ops->cq_tag once this case supports callbacks
   auto result = grpc_call_start_batch(call->call(), cops, nops, ops, nullptr);
   if (result != GRPC_CALL_OK) {
     gpr_log(GPR_ERROR, "Fatal: grpc_call_start_batch returned %d", result);
@@ -686,9 +701,6 @@ ServerInterface::BaseAsyncRequest::~BaseAsyncRequest() {
 
 bool ServerInterface::BaseAsyncRequest::FinalizeResult(void** tag,
                                                        bool* status) {
-  if (*status) {
-    context_->client_metadata_.FillMap();
-  }
   context_->set_call(call_);
   context_->cq_ = call_cq_;
   internal::Call call(call_, server_, call_cq_,

@@ -22,7 +22,7 @@
 
 Pod::Spec.new do |s|
   s.name     = 'gRPC-Core'
-  version = '1.15.1'
+  version = '1.16.0'
   s.version  = version
   s.summary  = 'Core cross-platform gRPC library, written in C'
   s.homepage = 'https://grpc.io'
@@ -394,6 +394,7 @@ Pod::Spec.new do |s|
                       'src/core/lib/http/httpcli.h',
                       'src/core/lib/http/parser.h',
                       'src/core/lib/iomgr/block_annotate.h',
+                      'src/core/lib/iomgr/buffer_list.h',
                       'src/core/lib/iomgr/call_combiner.h',
                       'src/core/lib/iomgr/closure.h',
                       'src/core/lib/iomgr/combiner.h',
@@ -403,12 +404,12 @@ Pod::Spec.new do |s|
                       'src/core/lib/iomgr/error_internal.h',
                       'src/core/lib/iomgr/ev_epoll1_linux.h',
                       'src/core/lib/iomgr/ev_epollex_linux.h',
-                      'src/core/lib/iomgr/ev_epollsig_linux.h',
                       'src/core/lib/iomgr/ev_poll_posix.h',
                       'src/core/lib/iomgr/ev_posix.h',
                       'src/core/lib/iomgr/exec_ctx.h',
                       'src/core/lib/iomgr/executor.h',
                       'src/core/lib/iomgr/gethostname.h',
+                      'src/core/lib/iomgr/internal_errqueue.h',
                       'src/core/lib/iomgr/iocp_windows.h',
                       'src/core/lib/iomgr/iomgr.h',
                       'src/core/lib/iomgr/iomgr_custom.h',
@@ -538,6 +539,7 @@ Pod::Spec.new do |s|
                       'src/core/lib/http/format_request.cc',
                       'src/core/lib/http/httpcli.cc',
                       'src/core/lib/http/parser.cc',
+                      'src/core/lib/iomgr/buffer_list.cc',
                       'src/core/lib/iomgr/call_combiner.cc',
                       'src/core/lib/iomgr/combiner.cc',
                       'src/core/lib/iomgr/endpoint.cc',
@@ -547,7 +549,6 @@ Pod::Spec.new do |s|
                       'src/core/lib/iomgr/error.cc',
                       'src/core/lib/iomgr/ev_epoll1_linux.cc',
                       'src/core/lib/iomgr/ev_epollex_linux.cc',
-                      'src/core/lib/iomgr/ev_epollsig_linux.cc',
                       'src/core/lib/iomgr/ev_poll_posix.cc',
                       'src/core/lib/iomgr/ev_posix.cc',
                       'src/core/lib/iomgr/ev_windows.cc',
@@ -558,6 +559,7 @@ Pod::Spec.new do |s|
                       'src/core/lib/iomgr/gethostname_fallback.cc',
                       'src/core/lib/iomgr/gethostname_host_name_max.cc',
                       'src/core/lib/iomgr/gethostname_sysconf.cc',
+                      'src/core/lib/iomgr/internal_errqueue.cc',
                       'src/core/lib/iomgr/iocp_windows.cc',
                       'src/core/lib/iomgr/iomgr.cc',
                       'src/core/lib/iomgr/iomgr_custom.cc',
@@ -993,6 +995,7 @@ Pod::Spec.new do |s|
                               'src/core/lib/http/httpcli.h',
                               'src/core/lib/http/parser.h',
                               'src/core/lib/iomgr/block_annotate.h',
+                              'src/core/lib/iomgr/buffer_list.h',
                               'src/core/lib/iomgr/call_combiner.h',
                               'src/core/lib/iomgr/closure.h',
                               'src/core/lib/iomgr/combiner.h',
@@ -1002,12 +1005,12 @@ Pod::Spec.new do |s|
                               'src/core/lib/iomgr/error_internal.h',
                               'src/core/lib/iomgr/ev_epoll1_linux.h',
                               'src/core/lib/iomgr/ev_epollex_linux.h',
-                              'src/core/lib/iomgr/ev_epollsig_linux.h',
                               'src/core/lib/iomgr/ev_poll_posix.h',
                               'src/core/lib/iomgr/ev_posix.h',
                               'src/core/lib/iomgr/exec_ctx.h',
                               'src/core/lib/iomgr/executor.h',
                               'src/core/lib/iomgr/gethostname.h',
+                              'src/core/lib/iomgr/internal_errqueue.h',
                               'src/core/lib/iomgr/iocp_windows.h',
                               'src/core/lib/iomgr/iomgr.h',
                               'src/core/lib/iomgr/iomgr_custom.h',
