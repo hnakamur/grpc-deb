@@ -1,6 +1,7 @@
-grpc (1.16.0-1) UNRELEASED; urgency=medium
+grpc (1.16.0-1) unstable; urgency=medium
 
   * New upstream release.
+  * Update no-werror.diff patch.
 
  -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Tue, 23 Oct 2018 18:04:22 +0000
 
