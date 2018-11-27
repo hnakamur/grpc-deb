@@ -16,6 +16,8 @@ License: Apache-2.0
 
 Files: debian/*
 Copyright: 2015-2016 Andrew Pollock <apollock@debian.org>
+           2018 Hilko Bengen <bengen@debian.org>
+           2018 Chris Lamb <lamby@debian.org>
            2017-     Laszlo Boszormenyi (GCS) <gcs@debian.org>
 License: GPL-2+
  This package is free software; you can redistribute it and/or modify
