@@ -47,7 +47,11 @@ override_dh_auto_install:
 		\( -name ca.pem -o -name server1.key -o -name server1.pem \) \
 		-exec chmod a-x {} \;
 
-%:
-	dh $@ --list-missing
+override_dh_missing:
+	dh_missing --list-missing
 
-.PHONY: override_dh_auto_build override_dh_auto_test override_dh_auto_install
+%:
+	dh $@
+
+.PHONY: override_dh_auto_build override_dh_auto_test \
+	override_dh_auto_install override_dh_missing
