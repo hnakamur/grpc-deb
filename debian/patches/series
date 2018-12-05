@@ -9,4 +9,3 @@ no-make-in-extconf.patch
 use-system-grpc.patch
 fix-protoc-path.patch
 add_grpc_libdir.patch
-libgrpcpp_channelz_symlink.patch

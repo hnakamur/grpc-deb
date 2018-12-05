@@ -2,6 +2,7 @@ grpc (1.17.0-1) UNRELEASED; urgency=medium
 
   * New upstream release.
   * Remove fix-libgrpc++-soname.diff as applied upstream.
+  * Remove libgrpcpp_channelz_symlink.patch as applied upstream.
 
  -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Wed, 05 Dec 2018 13:45:31 +0000
 
