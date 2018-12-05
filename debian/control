@@ -25,16 +25,16 @@ Package: libgrpc-dev
 Section: libdevel
 Architecture: any
 Multi-Arch: same
-Depends: libgrpc6 (= ${binary:Version}), ${misc:Depends}
+Depends: libgrpc7 (= ${binary:Version}), ${misc:Depends}
 Conflicts: libgpr1-dev, libgpr2-dev
 Description: high performance general RPC framework (development)
  A modern, open source remote procedure call (RPC) framework that can
  run anywhere. It enables client and server applications to communicate
  transparently, and makes it easier to build connected systems.
  .
- This package contains the headers and the static library for libgrpc6.
+ This package contains the headers and the static library for libgrpc7.
 
-Package: libgrpc6
+Package: libgrpc7
 Architecture: any
 Multi-Arch: same
 Depends: ${shlibs:Depends}, ${misc:Depends}
