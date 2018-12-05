@@ -5,6 +5,8 @@ usr/lib/*/libgrpc.a
 usr/lib/*/libgrpc.so
 usr/lib/*/libgrpc_*.a
 usr/lib/*/libgrpc_*.so
+usr/lib/*/libaddress_sorting.a
+usr/lib/*/libaddress_sorting.so
 usr/lib/*/pkgconfig/gpr.pc
 usr/lib/*/pkgconfig/grpc.pc
 usr/lib/*/pkgconfig/grpc_unsecure.pc

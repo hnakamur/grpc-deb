@@ -4,6 +4,7 @@ grpc (1.17.0-1) UNRELEASED; urgency=medium
   * Remove fix-libgrpc++-soname.diff as applied upstream.
   * Remove libgrpcpp_channelz_symlink.patch as applied upstream.
   * Update install_libdir patch.
+  * Install all libraries.
 
  -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Wed, 05 Dec 2018 13:45:31 +0000
 
