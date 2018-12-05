@@ -11,7 +11,7 @@ Build-Depends: debhelper (>= 11~), zlib1g-dev, libssl-dev, libprotobuf-dev, prot
  python-six, python3-six,
  python-setuptools, python3-setuptools,
  python-pkg-resources, python3-pkg-resources,
- python-sphinx, python3-sphinx,
+ python-sphinx, python3-sphinx (>= 1.8.1),
  python-sphinx-rtd-theme, python3-sphinx-rtd-theme
 Standards-Version: 4.2.1
 Section: libs
