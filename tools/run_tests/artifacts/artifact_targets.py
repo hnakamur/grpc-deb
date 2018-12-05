@@ -124,6 +124,8 @@ class PythonArtifact:
             # https://github.com/resin-io-projects/armv7hf-debian-qemu/issues/9
             # A QEMU bug causes submodule update to hang, so we copy directly
             environ['RELATIVE_COPY_PATH'] = '.'
+            # Parallel builds are counterproductive in emulated environment
+            environ['GRPC_PYTHON_BUILD_EXT_COMPILER_JOBS'] = '1'
             extra_args = ' --entrypoint=/usr/bin/qemu-arm-static '
             return create_docker_jobspec(
                 self.name,
@@ -240,11 +242,10 @@ class CSharpExtArtifact:
                 ['tools/run_tests/artifacts/build_artifact_csharp_ios.sh'],
                 use_workspace=True)
         elif self.platform == 'windows':
-            cmake_arch_option = 'Win32' if self.arch == 'x86' else self.arch
             return create_jobspec(
                 self.name, [
                     'tools\\run_tests\\artifacts\\build_artifact_csharp.bat',
-                    cmake_arch_option
+                    self.arch
                 ],
                 use_workspace=True)
         else:
