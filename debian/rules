@@ -39,7 +39,8 @@ override_dh_auto_clean:
 	dh_auto_clean
 	dh_auto_clean -O--buildsystem=pybuild
 	find $(CURDIR)/src/python/grpcio/ -name \*.so -delete
-	$(RM) -rf $(CURDIR)/src/python/grpcio/grpcio.egg-info/
+	$(RM) -rf $(CURDIR)/src/python/grpcio/grpcio.egg-info/ \
+		$(CURDIR)/.eggs/
 	$(RM) -f \
 		$(CURDIR)/src/python/grpcio/grpc/_cython/_credentials/roots.pem \
 		$(CURDIR)/src/python/grpcio/grpc/_cython/cygrpc.cpp \
