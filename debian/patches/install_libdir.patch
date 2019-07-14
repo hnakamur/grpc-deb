@@ -1,6 +1,6 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -2967,88 +2967,88 @@ install-static: install-static_c install
+@@ -3014,88 +3014,88 @@
  
  install-static_c: static_c strip-static_c install-pkg-config_c
  	$(E) "[INSTALL] Installing libaddress_sorting.a"
@@ -136,7 +136,7 @@
  endif
  ifneq ($(SYSTEM),MINGW32)
  ifneq ($(SYSTEM),Darwin)
-@@ -3059,58 +3059,58 @@ endif
+@@ -3106,58 +3106,58 @@
  
  install-shared_cxx: shared_cxx strip-shared_cxx install-shared_c install-pkg-config_cxx
  	$(E) "[INSTALL] Installing $(SHARED_PREFIX)grpc++$(SHARED_VERSION_CPP).$(SHARED_EXT_CPP)"
@@ -225,7 +225,7 @@
  endif
  ifneq ($(SYSTEM),MINGW32)
  ifneq ($(SYSTEM),Darwin)
-@@ -3121,13 +3121,13 @@ endif
+@@ -3168,13 +3168,13 @@
  
  install-shared_csharp: shared_csharp strip-shared_csharp
  	$(E) "[INSTALL] Installing $(SHARED_PREFIX)grpc_csharp_ext$(SHARED_VERSION_CSHARP).$(SHARED_EXT_CSHARP)"
@@ -244,7 +244,7 @@
  endif
  ifneq ($(SYSTEM),MINGW32)
  ifneq ($(SYSTEM),Darwin)
-@@ -3160,16 +3160,16 @@ install-grpc-cli: grpc_cli
+@@ -3207,16 +3207,16 @@
  
  install-pkg-config_c: pc_c pc_c_unsecure
  	$(E) "[INSTALL] Installing C pkg-config files"
