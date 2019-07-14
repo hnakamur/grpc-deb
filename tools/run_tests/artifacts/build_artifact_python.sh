@@ -105,8 +105,14 @@ then
   "${PIP}" install grpcio-tools --no-index --find-links "file://$ARTIFACT_DIR/"
 
   # Build grpcio_testing source distribution
-  ${SETARCH_CMD} "${PYTHON}" src/python/grpcio_testing/setup.py sdist
+  ${SETARCH_CMD} "${PYTHON}" src/python/grpcio_testing/setup.py preprocess \
+      sdist
   cp -r src/python/grpcio_testing/dist/* "$ARTIFACT_DIR"
+
+  # Build grpcio_channelz source distribution
+  ${SETARCH_CMD} "${PYTHON}" src/python/grpcio_channelz/setup.py \
+      preprocess build_package_protos sdist
+  cp -r src/python/grpcio_channelz/dist/* "$ARTIFACT_DIR"
 
   # Build grpcio_health_checking source distribution
   ${SETARCH_CMD} "${PYTHON}" src/python/grpcio_health_checking/setup.py \
@@ -117,7 +123,18 @@ then
   ${SETARCH_CMD} "${PYTHON}" src/python/grpcio_reflection/setup.py \
       preprocess build_package_protos sdist
   cp -r src/python/grpcio_reflection/dist/* "$ARTIFACT_DIR"
+
+  # Build grpcio_status source distribution
+  ${SETARCH_CMD} "${PYTHON}" src/python/grpcio_status/setup.py \
+      preprocess sdist
+  cp -r src/python/grpcio_status/dist/* "$ARTIFACT_DIR"
 fi
+
+# Ensure the generated artifacts are valid.
+"${PYTHON}" -m virtualenv venv || { "${PYTHON}" -m pip install virtualenv && "${PYTHON}" -m virtualenv venv; }
+venv/bin/python -m pip install twine
+venv/bin/python -m twine check dist/* tools/distrib/python/grpcio_tools/dist/*
+rm -rf venv/
 
 cp -r dist/* "$ARTIFACT_DIR"
 cp -r tools/distrib/python/grpcio_tools/dist/* "$ARTIFACT_DIR"

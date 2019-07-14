@@ -96,11 +96,11 @@
     return out
 
   def grpc_test_util_files(libs):
-    out = grpc_lib_files(libs, ("grpc_test_util", "gpr_test_util"), ("src", "headers"))
+    out = grpc_lib_files(libs, ("grpc_test_util",), ("src", "headers"))
     return out
 
   def grpc_test_util_headers(libs):
-    out = grpc_lib_files(libs, ("grpc_test_util", "gpr_test_util"), ("headers",))
+    out = grpc_lib_files(libs, ("grpc_test_util",), ("headers",))
     return out
 
   # Tests subspec is currently disabled since the tests currently use `grpc++` include style instead of `grpcpp`.
@@ -140,7 +140,7 @@
     s.name     = 'gRPC-C++'
     # TODO (mxyan): use version that match gRPC version when pod is stabilized
     # version = '${settings.version}'
-    version = '${modify_podspec_version_string('0.0.6', settings.version)}'
+    version = '${modify_podspec_version_string('0.0.9', settings.version)}'
     s.version  = version
     s.summary  = 'gRPC C++ library'
     s.homepage = 'https://grpc.io'
@@ -156,6 +156,8 @@
 
     s.ios.deployment_target = '7.0'
     s.osx.deployment_target = '10.9'
+    s.tvos.deployment_target = '10.0'
+
     s.requires_arc = false
 
     name = 'grpcpp'
@@ -186,7 +188,7 @@
     s.default_subspecs = 'Interface', 'Implementation'
 
     # Certificates, to be able to establish TLS connections:
-    s.resource_bundles = { 'gRPCCertificates' => ['etc/roots.pem'] }
+    s.resource_bundles = { 'gRPCCertificates-Cpp' => ['etc/roots.pem'] }
 
     s.header_mappings_dir = 'include/grpcpp'
 

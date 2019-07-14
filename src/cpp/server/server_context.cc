@@ -16,7 +16,8 @@
  *
  */
 
-#include <grpcpp/server_context.h>
+#include <grpcpp/impl/codegen/server_context_impl.h>
+#include <grpcpp/support/server_callback.h>
 
 #include <algorithm>
 #include <mutex>
@@ -27,22 +28,27 @@
 #include <grpc/load_reporting.h>
 #include <grpc/support/alloc.h>
 #include <grpc/support/log.h>
-#include <grpcpp/completion_queue.h>
 #include <grpcpp/impl/call.h>
+#include <grpcpp/impl/codegen/completion_queue_impl.h>
 #include <grpcpp/support/time.h>
 
+#include "src/core/lib/gprpp/ref_counted.h"
+#include "src/core/lib/gprpp/sync.h"
 #include "src/core/lib/surface/call.h"
 
-namespace grpc {
+namespace grpc_impl {
 
 // CompletionOp
 
-class ServerContext::CompletionOp final : public internal::CallOpSetInterface {
+class ServerContext::CompletionOp final
+    : public ::grpc::internal::CallOpSetInterface {
  public:
   // initial refs: one in the server context, one in the cq
   // must ref the call before calling constructor and after deleting this
-  CompletionOp(internal::Call* call)
+  CompletionOp(::grpc::internal::Call* call,
+               ::grpc::internal::ServerReactor* reactor)
       : call_(*call),
+        reactor_(reactor),
         has_tag_(false),
         tag_(nullptr),
         core_cq_tag_(this),
@@ -63,7 +69,7 @@ class ServerContext::CompletionOp final : public internal::CallOpSetInterface {
     }
   }
 
-  void FillOps(internal::Call* call) override;
+  void FillOps(::grpc::internal::Call* call) override;
 
   // This should always be arena allocated in the call, so override delete.
   // But this class is not trivially destructible, so must actually call delete
@@ -92,6 +98,22 @@ class ServerContext::CompletionOp final : public internal::CallOpSetInterface {
     tag_ = tag;
   }
 
+  void SetCancelCallback(std::function<void()> callback) {
+    grpc_core::MutexLock lock(&mu_);
+
+    if (finalized_ && (cancelled_ != 0)) {
+      callback();
+      return;
+    }
+
+    cancel_callback_ = std::move(callback);
+  }
+
+  void ClearCancelCallback() {
+    grpc_core::MutexLock g(&mu_);
+    cancel_callback_ = nullptr;
+  }
+
   void set_core_cq_tag(void* core_cq_tag) { core_cq_tag_ = core_cq_tag; }
 
   void* core_cq_tag() override { return core_cq_tag_; }
@@ -114,50 +136,44 @@ class ServerContext::CompletionOp final : public internal::CallOpSetInterface {
     done_intercepting_ = true;
     if (!has_tag_) {
       /* We don't have a tag to return. */
-      std::unique_lock<std::mutex> lock(mu_);
-      if (--refs_ == 0) {
-        lock.unlock();
-        grpc_call* call = call_.call();
-        delete this;
-        grpc_call_unref(call);
-      }
+      Unref();
       return;
     }
     /* Start a dummy op so that we can return the tag */
-    GPR_CODEGEN_ASSERT(GRPC_CALL_OK ==
-                       g_core_codegen_interface->grpc_call_start_batch(
-                           call_.call(), nullptr, 0, this, nullptr));
+    GPR_CODEGEN_ASSERT(
+        GRPC_CALL_OK ==
+        grpc_call_start_batch(call_.call(), nullptr, 0, core_cq_tag_, nullptr));
   }
 
  private:
   bool CheckCancelledNoPluck() {
-    std::lock_guard<std::mutex> g(mu_);
+    grpc_core::MutexLock lock(&mu_);
     return finalized_ ? (cancelled_ != 0) : false;
   }
 
-  internal::Call call_;
+  ::grpc::internal::Call call_;
+  ::grpc::internal::ServerReactor* const reactor_;
   bool has_tag_;
   void* tag_;
   void* core_cq_tag_;
-  std::mutex mu_;
-  int refs_;
+  grpc_core::RefCount refs_;
+  grpc_core::Mutex mu_;
   bool finalized_;
-  int cancelled_;
+  int cancelled_;  // This is an int (not bool) because it is passed to core
+  std::function<void()> cancel_callback_;
   bool done_intercepting_;
-  internal::InterceptorBatchMethodsImpl interceptor_methods_;
+  ::grpc::internal::InterceptorBatchMethodsImpl interceptor_methods_;
 };
 
 void ServerContext::CompletionOp::Unref() {
-  std::unique_lock<std::mutex> lock(mu_);
-  if (--refs_ == 0) {
-    lock.unlock();
+  if (refs_.Unref()) {
     grpc_call* call = call_.call();
     delete this;
     grpc_call_unref(call);
   }
 }
 
-void ServerContext::CompletionOp::FillOps(internal::Call* call) {
+void ServerContext::CompletionOp::FillOps(::grpc::internal::Call* call) {
   grpc_op ops;
   ops.op = GRPC_OP_RECV_CLOSE_ON_SERVER;
   ops.data.recv_close_on_server.cancelled = &cancelled_;
@@ -173,43 +189,54 @@ void ServerContext::CompletionOp::FillOps(internal::Call* call) {
 
 bool ServerContext::CompletionOp::FinalizeResult(void** tag, bool* status) {
   bool ret = false;
-  std::unique_lock<std::mutex> lock(mu_);
+  grpc_core::ReleasableMutexLock lock(&mu_);
   if (done_intercepting_) {
     /* We are done intercepting. */
     if (has_tag_) {
       *tag = tag_;
       ret = true;
     }
-    if (--refs_ == 0) {
-      lock.unlock();
-      grpc_call* call = call_.call();
-      delete this;
-      grpc_call_unref(call);
-    }
+    Unref();
     return ret;
   }
   finalized_ = true;
 
-  if (!*status) cancelled_ = 1;
-  /* Release the lock since we are going to be running through interceptors now
-   */
-  lock.unlock();
+  // If for some reason the incoming status is false, mark that as a
+  // cancellation.
+  // TODO(vjpai): does this ever happen?
+  if (!*status) {
+    cancelled_ = 1;
+  }
+
+  // Decide whether to call the cancel callback before releasing the lock
+  bool call_cancel = (cancelled_ != 0);
+
+  // If it's a unary cancel callback, call it under the lock so that it doesn't
+  // race with ClearCancelCallback. Although we don't normally call callbacks
+  // under a lock, this is a special case since the user needs a guarantee that
+  // the callback won't issue or run after ClearCancelCallback has returned.
+  // This requirement imposes certain restrictions on the callback, documented
+  // in the API comments of SetCancelCallback.
+  if (cancel_callback_) {
+    cancel_callback_();
+  }
+
+  // Release the lock since we may call a callback and interceptors now.
+  lock.Unlock();
+
+  if (call_cancel && reactor_ != nullptr) {
+    reactor_->MaybeCallOnCancel();
+  }
   /* Add interception point and run through interceptors */
   interceptor_methods_.AddInterceptionHookPoint(
-      experimental::InterceptionHookPoints::POST_RECV_CLOSE);
+      ::grpc::experimental::InterceptionHookPoints::POST_RECV_CLOSE);
   if (interceptor_methods_.RunInterceptors()) {
     /* No interceptors were run */
     if (has_tag_) {
       *tag = tag_;
       ret = true;
     }
-    lock.lock();
-    if (--refs_ == 0) {
-      lock.unlock();
-      grpc_call* call = call_.call();
-      delete this;
-      grpc_call_unref(call);
-    }
+    Unref();
     return ret;
   }
   /* There are interceptors to be run. Return false for now */
@@ -251,21 +278,25 @@ void ServerContext::Clear() {
   initial_metadata_.clear();
   trailing_metadata_.clear();
   client_metadata_.Reset();
-  if (call_) {
-    grpc_call_unref(call_);
-  }
   if (completion_op_) {
     completion_op_->Unref();
+    completion_op_ = nullptr;
     completion_tag_.Clear();
   }
   if (rpc_info_) {
     rpc_info_->Unref();
+    rpc_info_ = nullptr;
   }
-  // Don't need to clear out call_, completion_op_, or rpc_info_ because this is
-  // either called from destructor or just before Setup
+  if (call_) {
+    auto* call = call_;
+    call_ = nullptr;
+    grpc_call_unref(call);
+  }
 }
 
-void ServerContext::BeginCompletionOp(internal::Call* call, bool callback) {
+void ServerContext::BeginCompletionOp(
+    ::grpc::internal::Call* call, std::function<void(bool)> callback,
+    ::grpc::internal::ServerReactor* reactor) {
   GPR_ASSERT(!completion_op_);
   if (rpc_info_) {
     rpc_info_->Ref();
@@ -273,18 +304,19 @@ void ServerContext::BeginCompletionOp(internal::Call* call, bool callback) {
   grpc_call_ref(call->call());
   completion_op_ =
       new (grpc_call_arena_alloc(call->call(), sizeof(CompletionOp)))
-          CompletionOp(call);
-  if (callback) {
-    completion_tag_.Set(call->call(), nullptr, completion_op_);
+          CompletionOp(call, reactor);
+  if (callback != nullptr) {
+    completion_tag_.Set(call->call(), std::move(callback), completion_op_);
     completion_op_->set_core_cq_tag(&completion_tag_);
+    completion_op_->set_tag(completion_op_);
   } else if (has_notify_when_done_tag_) {
     completion_op_->set_tag(async_notify_when_done_tag_);
   }
   call->PerformOps(completion_op_);
 }
 
-internal::CompletionQueueTag* ServerContext::GetCompletionOpTag() {
-  return static_cast<internal::CompletionQueueTag*>(completion_op_);
+::grpc::internal::CompletionQueueTag* ServerContext::GetCompletionOpTag() {
+  return static_cast<::grpc::internal::CompletionQueueTag*>(completion_op_);
 }
 
 void ServerContext::AddInitialMetadata(const grpc::string& key,
@@ -298,7 +330,7 @@ void ServerContext::AddTrailingMetadata(const grpc::string& key,
 }
 
 void ServerContext::TryCancel() const {
-  internal::CancelInterceptorBatchMethods cancel_methods;
+  ::grpc::internal::CancelInterceptorBatchMethods cancel_methods;
   if (rpc_info_) {
     for (size_t i = 0; i < rpc_info_->interceptors_.size(); i++) {
       rpc_info_->RunInterceptor(&cancel_methods, i);
@@ -309,6 +341,14 @@ void ServerContext::TryCancel() const {
   if (err != GRPC_CALL_OK) {
     gpr_log(GPR_ERROR, "TryCancel failed with: %d", err);
   }
+}
+
+void ServerContext::SetCancelCallback(std::function<void()> callback) {
+  completion_op_->SetCancelCallback(std::move(callback));
+}
+
+void ServerContext::ClearCancelCallback() {
+  completion_op_->ClearCancelCallback();
 }
 
 bool ServerContext::IsCancelled() const {
@@ -360,4 +400,4 @@ void ServerContext::SetLoadReportingCosts(
   }
 }
 
-}  // namespace grpc
+}  // namespace grpc_impl
