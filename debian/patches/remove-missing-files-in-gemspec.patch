@@ -1,6 +1,6 @@
 --- a/grpc.gemspec
 +++ b/grpc.gemspec
-@@ -46,11 +46,6 @@ Gem::Specification.new do |s|
+@@ -46,11 +46,6 @@
  
    s.extensions = %w(src/ruby/ext/grpc/extconf.rb)
  
@@ -12,7 +12,7 @@
    s.files += %w( include/grpc/support/alloc.h )
    s.files += %w( include/grpc/support/atm.h )
    s.files += %w( include/grpc/support/atm_gcc_atomic.h )
-@@ -258,10 +253,6 @@ Gem::Specification.new do |s|
+@@ -272,10 +267,6 @@
    s.files += %w( src/core/tsi/alts/handshaker/altscontext.pb.h )
    s.files += %w( src/core/tsi/alts/handshaker/handshaker.pb.h )
    s.files += %w( src/core/tsi/alts/handshaker/transport_security_common.pb.h )
@@ -23,7 +23,7 @@
    s.files += %w( src/core/tsi/transport_security.h )
    s.files += %w( src/core/tsi/transport_security_interface.h )
    s.files += %w( src/core/ext/transport/chttp2/client/authority.h )
-@@ -689,9 +670,6 @@ Gem::Specification.new do |s|
+@@ -733,9 +724,6 @@
    s.files += %w( src/core/tsi/alts/handshaker/altscontext.pb.c )
    s.files += %w( src/core/tsi/alts/handshaker/handshaker.pb.c )
    s.files += %w( src/core/tsi/alts/handshaker/transport_security_common.pb.c )
@@ -33,7 +33,7 @@
    s.files += %w( src/core/tsi/transport_security.cc )
    s.files += %w( src/core/ext/transport/chttp2/client/insecure/channel_create.cc )
    s.files += %w( src/core/ext/transport/chttp2/client/insecure/channel_create_posix.cc )
-@@ -762,535 +750,5 @@ Gem::Specification.new do |s|
+@@ -817,537 +805,5 @@
    s.files += %w( src/core/ext/filters/workarounds/workaround_cronet_compression_filter.cc )
    s.files += %w( src/core/ext/filters/workarounds/workaround_utils.cc )
    s.files += %w( src/core/plugin_registry/grpc_plugin_registry.cc )
@@ -510,6 +510,7 @@
 -  s.files += %w( third_party/cares/cares/ares_setup.h )
 -  s.files += %w( third_party/cares/cares/ares_strcasecmp.h )
 -  s.files += %w( third_party/cares/cares/ares_strdup.h )
+-  s.files += %w( third_party/cares/cares/ares_strsplit.h )
 -  s.files += %w( third_party/cares/cares/ares_version.h )
 -  s.files += %w( third_party/cares/cares/bitncmp.h )
 -  s.files += %w( third_party/cares/cares/config-win32.h )
@@ -561,6 +562,7 @@
 -  s.files += %w( third_party/cares/cares/ares_strcasecmp.c )
 -  s.files += %w( third_party/cares/cares/ares_strdup.c )
 -  s.files += %w( third_party/cares/cares/ares_strerror.c )
+-  s.files += %w( third_party/cares/cares/ares_strsplit.c )
 -  s.files += %w( third_party/cares/cares/ares_timeout.c )
 -  s.files += %w( third_party/cares/cares/ares_version.c )
 -  s.files += %w( third_party/cares/cares/ares_writev.c )
