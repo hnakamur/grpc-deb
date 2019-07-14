@@ -1,3 +1,9 @@
+grpc (1.17.2-1ppa1~bionic) bionic; urgency=medium
+
+  * Backport to Ubuntu 18.04 LTS.
+
+ -- Hiroaki Nakamura <hnakamur@gmail.com>  Sun, 14 Jul 2019 18:19:15 +0900
+
 grpc (1.17.2-1) experimental; urgency=medium
 
   * New upstream release.
