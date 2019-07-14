@@ -1,6 +1,6 @@
 --- a/src/ruby/ext/grpc/extconf.rb
 +++ b/src/ruby/ext/grpc/extconf.rb
-@@ -42,17 +42,8 @@
+@@ -50,17 +50,8 @@
  grpc_lib_dir = File.join(output_dir, 'libs', grpc_config)
  ENV['BUILDDIR'] = output_dir
  
