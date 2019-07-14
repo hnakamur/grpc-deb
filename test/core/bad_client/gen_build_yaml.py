@@ -17,6 +17,7 @@
 """Generates the appropriate build.json data for all the bad_client tests."""
 
 
+from __future__ import print_function
 import collections
 import yaml
 
@@ -45,7 +46,7 @@ def main():
           {
             'name': 'bad_client_test',
             'build': 'private',
-            'language': 'c',
+            'language': 'c++',
             'src': [
               'test/core/bad_client/bad_client.cc'
             ],
@@ -56,7 +57,6 @@ def main():
             'deps': [
               'grpc_test_util_unsecure',
               'grpc_unsecure',
-              'gpr_test_util',
               'gpr'
             ]
           }],
@@ -65,7 +65,7 @@ def main():
               'name': '%s_bad_client_test' % t,
               'cpu_cost': BAD_CLIENT_TESTS[t].cpu_cost,
               'build': 'test',
-              'language': 'c',
+              'language': 'c++',
               'secure': 'no',
               'src': ['test/core/bad_client/tests/%s.cc' % t],
               'vs_proj_dir': 'test',
@@ -74,12 +74,11 @@ def main():
                   'bad_client_test',
                   'grpc_test_util_unsecure',
                   'grpc_unsecure',
-                  'gpr_test_util',
                   'gpr'
               ]
           }
       for t in sorted(BAD_CLIENT_TESTS.keys())]}
-  print yaml.dump(json)
+  print(yaml.dump(json))
 
 
 if __name__ == '__main__':
